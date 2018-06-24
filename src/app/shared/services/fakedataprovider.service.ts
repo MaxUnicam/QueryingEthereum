@@ -27,15 +27,24 @@ export class FakeDataProviderService extends DataProvider {
   }
 
   getTransactions(blockNumber: Number): Transaction[] {
-    return null;
+    const transactions = [];
+    for (let i = 0; i < 100; i++) {
+      transactions.push(this.createTransaction());
+    }
+    return transactions;
   }
 
   getAccount(hash: String): Account {
-    return null;
+    return this.createAccount();
   }
 
   getAccounts(blockNumber: Number): Account[] {
-    return null;
+    const accounts = [];
+    for (let i = 0; i < 10; i++) {
+      accounts.push(this.createAccount());
+    }
+
+    return accounts;
   }
 
 
@@ -92,5 +101,12 @@ export class FakeDataProviderService extends DataProvider {
     };
   }
 
+
+  private createAccount() {
+    return <Account> {
+      hash: '0x9fc76417374aa880d4449a1f7f31ec597f00b1f6f3dd2d66f4c9c6c445836d8b',
+      balance: new Decimal(Math.random() * 100000)
+    };
+  }
 
 }

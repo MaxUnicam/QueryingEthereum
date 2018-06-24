@@ -1,0 +1,42 @@
+<div class="container">
+
+  <div class="row">
+    <button class="btn btn-success" (click)="startQuery()">Query!</button>
+  </div>
+
+  <div class="row">
+    <div class="col-md-3">
+      <h3>Informazioni</h3>
+      <form>
+        <input type="radio" name="source" (change)="updateSelection('Block')" /> Blocco
+        <br>
+        <input type="radio" name="source" (change)="updateSelection('Transaction')" /> Transizione
+        <br>
+        <input type="radio" name="source" (change)="updateSelection('Account')" /> Account
+        <br>
+      </form>
+    </div>
+
+    <div class="col-md-3">
+      <h3>Selezione</h3>
+      <input type="checkbox" [checked]="firstChecked" (change)="firstChecked = !firstChecked"/> Primo
+      <br>
+      <input type="checkbox" [checked]="lastChecked" (change)="lastChecked = !lastChecked"/> Ultimo
+    </div>
+
+    <div class="col-md-3">
+      <h3>Proiezione</h3>
+      <div *ngFor="let property of currentProperties">
+        <input type="checkbox" (change)="updateProjection(property)" /> {{property}}
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <h3>Risultati</h3>
+      <div *ngFor="let result of queryResult" class="result-item">
+        <p style="margin: 1px;">{{result | json}}</p>
+      </div>
+    </div>
+  </div>
+
+</div>
