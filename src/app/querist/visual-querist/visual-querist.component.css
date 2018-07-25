@@ -1,0 +1,17 @@
+.visual-querist-container {
+  width: 100%;
+  padding: 16px;
+}
+
+.visual-querist-container mat-card {
+  width: 30%;
+  margin: 10px 20px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.query-button {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+}

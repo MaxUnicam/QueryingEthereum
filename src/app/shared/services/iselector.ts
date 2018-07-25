@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
-
+import { Constraint } from '../models/constraint';
 
 export interface ISelector {
 
-  first(source: any[]): any;
-
-  last(source: any[]): any;
+  filter(source: any[], constraints: Constraint[]): any;
 
 }
 
@@ -13,8 +11,6 @@ export interface ISelector {
 @Injectable()
 export abstract class Selector implements ISelector {
 
-  abstract first(source: any[]): any;
-
-  abstract last(source: any[]): any;
+  abstract filter(source: any[], constraints: Constraint[]): any;
 
 }

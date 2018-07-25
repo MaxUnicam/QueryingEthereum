@@ -1,1 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+html, body { height: 100%; }
+body { margin: 0; font-family: 'Roboto', sans-serif; }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: 'Roboto', sans-serif; }
+
+
+mat-sidenav,
+mat-sidenav.md-locked-open,
+mat-sidenav.md-closed.md-locked-open-add-active {
+    min-width: 200px !important;
+    width: 85vw !important;
+    max-width: 300px !important;
+}

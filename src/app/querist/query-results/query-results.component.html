@@ -1,0 +1,11 @@
+<div class="content">
+
+    <h3 style="margin: 16px;">Risultati</h3>
+    <div *ngFor="let result of querist.queryResult" class="result-item">
+      <mat-card>
+          <p style="margin: 1px;">{{result | json}}</p>
+      </mat-card>
+
+    </div>
+
+</div>

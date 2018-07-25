@@ -1,0 +1,36 @@
+<div class="visual-querist-container">
+
+    <mat-card>
+      <h3>Informazioni</h3>
+      <mat-radio-group>
+        <mat-radio-button value="Block" (change)="updateSelection('Block')">Blocco</mat-radio-button>
+        <br>
+        <mat-radio-button value="Transaction" (change)="updateSelection('Transaction')">Transizione</mat-radio-button>
+        <br>
+        <mat-radio-button value="Account" (change)="updateSelection('Account')">Account</mat-radio-button>
+      </mat-radio-group>
+    </mat-card>
+
+    <mat-card>
+      <h3>Selezione</h3>
+      <div *ngFor="let const of constraints">
+        <mat-checkbox (click)="updateFilter(const)">{{const | constraint}}</mat-checkbox>
+      </div>
+
+      <mat-card-actions>
+        <button mat-button [disabled]="currentProperties.length <= 0" (click)="openSelectionDialog()">PERSONALIZZATA</button>
+      </mat-card-actions>
+    </mat-card>
+
+    <mat-card>
+      <h3>Proiezione</h3>
+      <div *ngFor="let property of currentProperties">
+        <mat-checkbox (change)="updateProjection(property)">{{property}}</mat-checkbox>
+      </div>
+    </mat-card>
+
+</div>
+
+<button mat-fab class="query-button" (click)="startQuery()" [disabled]="currentProperties.length <= 0">
+  <mat-icon class="material-icons">send</mat-icon>
+</button>

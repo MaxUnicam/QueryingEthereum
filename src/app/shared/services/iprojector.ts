@@ -5,6 +5,12 @@ export interface IProjector {
 
   getProperties(source: any): String[];
 
+  getBlockProperties(): String[];
+
+  getTransactionProperties(): String[];
+
+  getAccountProperties(): String[];
+
   getValues(source: any, properties: String[]): any[];
 
   count(source: any): number;
@@ -16,6 +22,12 @@ export interface IProjector {
 export abstract class Projector implements IProjector {
 
   abstract getProperties(source: any): String[];
+
+  abstract getBlockProperties(): String[];
+
+  abstract getTransactionProperties(): String[];
+
+  abstract getAccountProperties(): String[];
 
   abstract getValues(source: any, properties: String[]): any[];
 

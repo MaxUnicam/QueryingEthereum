@@ -8,18 +8,32 @@ import { Projector } from './services/iprojector';
 import { DataProjectorService } from './services/dataprojector.service';
 import { Selector } from './services/iselector';
 import { DataSelectorService } from './services/dataselector.service';
+import { Querist } from './services/iquerist';
+import { CamQueristService } from './services/camquerist.service';
+import { SideMenuComponent } from './side-menu/side-menu.component';
+
+import { MatListModule, MatToolbarModule, MatIconModule } from '@angular/material';
+import { ConstraintPipe } from './pipes/constraint.pipe';
 
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    MatListModule,
+    MatToolbarModule,
+    MatIconModule
   ],
   providers: [
     // { provide: DataProvider, useClass: LocalDataProviderService }
     { provide: DataProvider, useClass: FakeDataProviderService },
     { provide: Projector, useClass: DataProjectorService },
     { provide: Selector, useClass: DataSelectorService },
+    { provide: Querist, useClass: CamQueristService },
   ],
-  declarations: []
+  exports: [
+    SideMenuComponent,
+    ConstraintPipe
+  ],
+  declarations: [ SideMenuComponent, ConstraintPipe ]
 })
 export class SharedModule { }

@@ -71,15 +71,15 @@ export class ConsoleDebugComponent implements OnInit {
       items = this.provider.getBlocks(1, 2);
     }
 
-    if (this.firstChecked) {
-      const item = this.selector.first(items);
-      items = [];
-      items.push(item);
-    } else if (this.lastChecked) {
-      const item = this.selector.last(items);
-      items = [];
-      items.push(item);
-    }
+    // if (this.firstChecked) {
+    //   const item = this.selector.first(items);
+    //   items = [];
+    //   items.push(item);
+    // } else if (this.lastChecked) {
+    //   const item = this.selector.last(items);
+    //   items = [];
+    //   items.push(item);
+    // }
 
     const result = [];
     for (let i = 0; i < items.length; i++) {
