@@ -10,6 +10,9 @@ import { MatDialog, MAT_DIALOG_DATA } from '@angular/material';
 import { SelectionDialogComponent } from '../selection-dialog/selection-dialog.component';
 import { Constraint } from '../../shared/models/constraint';
 
+
+import Web3 from 'web3';
+
 @Component({
   selector: 'app-visual-querist',
   templateUrl: './visual-querist.component.html',
@@ -53,7 +56,19 @@ export class VisualQueristComponent implements OnInit {
       });
     }
 
-  ngOnInit() { }
+  ngOnInit() {
+    // let web3;
+
+    // if (typeof web3 !== 'undefined') {
+    //   web3 = new Web3(web3.currentProvider);
+    // } else {
+    //   web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'));
+    // }
+
+    // console.log(web3);
+    // console.log('Siamo al blocco: ');
+    // console.log(web3.eth.blockNumber);
+  }
 
   updateFilter(item) {
     const index = this.selectedConstraints.indexOf(item);

@@ -53,10 +53,10 @@ export class DataSelectorService extends Selector {
     const value = object[constraint.property as string];
     switch (constraint.operator) {
       case '=': {
-        return value === constraint.value;
+        return value == constraint.value;
       }
       case '!=': {
-        return value !== constraint.value;
+        return value != constraint.value;
       }
       case '>': {
         return value > constraint.value;
