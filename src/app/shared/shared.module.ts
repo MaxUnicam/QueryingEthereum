@@ -14,6 +14,7 @@ import { SideMenuComponent } from './side-menu/side-menu.component';
 
 import { MatListModule, MatToolbarModule, MatIconModule } from '@angular/material';
 import { ConstraintPipe } from './pipes/constraint.pipe';
+import { LogicalPipe } from './pipes/logical.pipe';
 
 
 @NgModule({
@@ -32,8 +33,9 @@ import { ConstraintPipe } from './pipes/constraint.pipe';
   ],
   exports: [
     SideMenuComponent,
-    ConstraintPipe
+    ConstraintPipe,
+    LogicalPipe
   ],
-  declarations: [ SideMenuComponent, ConstraintPipe ]
+  declarations: [ SideMenuComponent, ConstraintPipe, LogicalPipe ]
 })
 export class SharedModule { }

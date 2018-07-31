@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { LayoutComponent } from './layout/layout.component';
 import { VisualQueristComponent } from './visual-querist/visual-querist.component';
 import { QueryResultsComponent } from './query-results/query-results.component';
-import { SelectionDialogComponent } from './selection-dialog/selection-dialog.component';
+import { SettingsComponent } from './settings/settings.component';
 
 import { RouterModule, Routes } from '@angular/router';
 
@@ -19,20 +19,20 @@ import {
   MatCheckboxModule,
   MatRadioModule,
   MatSidenavModule,
-  MatDialogModule,
   MatSelectModule,
-  MatInputModule
+  MatInputModule,
+  MatProgressBarModule
 } from '@angular/material';
 
 
 const appRoutes: Routes = [
   { path: 'querist', component: VisualQueristComponent },
   { path: 'results', component: QueryResultsComponent },
+  { path: 'settings', component: SettingsComponent },
   { path: '',
     redirectTo: 'querist',
     pathMatch: 'full'
   },
-  // { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({
@@ -50,9 +50,9 @@ const appRoutes: Routes = [
     MatCheckboxModule,
     MatRadioModule,
     MatSidenavModule,
-    MatDialogModule,
     MatSelectModule,
-    MatInputModule
+    MatInputModule,
+    MatProgressBarModule
   ],
   exports: [
     LayoutComponent
@@ -61,10 +61,8 @@ const appRoutes: Routes = [
     LayoutComponent,
     VisualQueristComponent,
     QueryResultsComponent,
-    SelectionDialogComponent
+    SettingsComponent
   ],
-  entryComponents: [
-    SelectionDialogComponent
-  ]
+  entryComponents: []
 })
 export class QueristModule { }

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
+import { DataProvider } from '../../shared/services/idataprovider';
+
 import { Querist } from '../../shared/services/iquerist';
+import { Query } from '../../shared/models/query';
 
 @Component({
   selector: 'app-query-results',
@@ -9,10 +12,21 @@ import { Querist } from '../../shared/services/iquerist';
 })
 export class QueryResultsComponent implements OnInit {
 
-  constructor(private querist: Querist) { }
+  private query: Query;
+  private isQuerying: Boolean = false;
+
+  constructor(private querist: Querist, private provider: DataProvider) {
+    this.query = this.querist.query;
+  }
 
   ngOnInit() {
+    if (!this.query) {
+      return;
+    }
 
+    this.isQuerying = true;
+    this.querist.executeQuery(this.query);
+    this.isQuerying = false;
   }
 
 }

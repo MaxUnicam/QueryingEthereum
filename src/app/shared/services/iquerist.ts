@@ -1,13 +1,17 @@
 import { Injectable } from '@angular/core';
 
-import { Constraint } from '../models/constraint';
+import { Query } from '../models/query';
 
 
 export interface IQuerist {
 
+  query: Query;
+
   queryResult: any[];
 
-  executeQuery(data: any[], properties: String[], constraints: Constraint[]);
+  executeQuery(query?: Query);
+
+  saveQuery(query: Query);
 
 }
 
@@ -15,8 +19,12 @@ export interface IQuerist {
 @Injectable()
 export abstract class Querist implements IQuerist {
 
+  query: Query;
+
   queryResult: any[];
 
-  abstract executeQuery(data: any[], properties: String[], constraints: Constraint[]);
+  abstract executeQuery(query?: Query);
+
+  abstract saveQuery(query: Query);
 
 }

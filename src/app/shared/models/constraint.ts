@@ -6,4 +6,12 @@ export class Constraint {
 
   value: any;
 
+  logicalOperator?: LogicalOperator = null;
+
+}
+
+
+export enum LogicalOperator {
+  And,
+  Or
 }

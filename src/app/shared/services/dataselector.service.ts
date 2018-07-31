@@ -1,5 +1,5 @@
 import { Selector } from './iselector';
-import { Constraint } from '../models/constraint';
+import { Constraint, LogicalOperator } from '../models/constraint';
 
 import { Injectable } from '@angular/core';
 
@@ -16,40 +16,43 @@ export class DataSelectorService extends Selector {
       return source;
     }
 
-    for (let i = 0; i < constraints.length; i++) {
-      const constraint = constraints[i];
-      source = this.applyConstraint(source, constraint);
-    }
-
-    return source;
-  }
-
-
-  private applyConstraint(source: any[], constraint: Constraint): any {
-    if (!source || source.length <= 0) {
-      return [];
-    }
-
-    if (this.isLastConstraint(constraint)) {
-      return [source[source.length - 1]];
-    }
-
-    if (this.isFirstConstraint(constraint)) {
-      return [source[0]];
-    }
-
-    const partialResult = [];
-    for (let j = 0; j < source.length; j ++) {
-      const row = source[j];
-      if (this.validateConstraint(row, constraint)) {
-        partialResult.push(row);
+    const result = [];
+    for (let i = 0; i < source.length; i++) {
+      const item = source[i];
+      if (this.respectsAllConstraints(item, constraints)) {
+        result.push(item);
       }
     }
 
-    return partialResult;
+    return result;
   }
 
-  private validateConstraint(object: any, constraint: Constraint): boolean {
+  private respectsAllConstraints(source: any, constraints: Constraint[]): boolean {
+    if (!source) {
+      return false;
+    }
+
+    if (!constraints || constraints.length <= 0) {
+      return true;
+    }
+
+    let valid = true;
+    let operator: LogicalOperator = LogicalOperator.And;
+    for (let j = 0; j < constraints.length; j ++) {
+      const constraint = constraints[j];
+      if (operator == LogicalOperator.And) {
+        valid = valid && this.respectsConstraint(source, constraint);
+      } else {
+        valid = valid || this.respectsConstraint(source, constraint);
+      }
+
+      operator = constraint.logicalOperator;
+    }
+
+    return valid;
+  }
+
+  private respectsConstraint(object: any, constraint: Constraint): boolean {
     const value = object[constraint.property as string];
     switch (constraint.operator) {
       case '=': {
@@ -70,26 +73,8 @@ export class DataSelectorService extends Selector {
       case '<=': {
         return value <= constraint.value;
       }
-      default: {
-        return false;
-      }
+      default: { return false; }
     }
-  }
-
-  private isLastConstraint(value: Constraint): boolean { return this.isEdgeConstraint(value, 'last'); }
-
-  private isFirstConstraint(value: Constraint): boolean { return this.isEdgeConstraint(value, 'first'); }
-
-  private isEdgeConstraint(value: Constraint, prop: string): boolean {
-    if (!value.property || !value.operator || !value.value) {
-      return false;
-    }
-
-    if (value.property.toLowerCase() !== prop.toLocaleLowerCase() || value.operator !== '=') {
-      return false;
-    }
-
-    return value.value === 1;
   }
 
 }

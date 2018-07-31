@@ -1,8 +1,9 @@
 import { Querist } from './iquerist';
-import { Constraint } from '../models/constraint';
+import { Query } from '../models/query';
 
-import { Projector } from '../../shared/services/iprojector';
-import { Selector } from '../../shared/services/iselector';
+import { Projector } from './iprojector';
+import { Selector } from './iselector';
+import { DataProvider } from './idataprovider';
 
 import { Injectable } from '@angular/core';
 
@@ -10,22 +11,34 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class CamQueristService extends Querist {
 
+  public query: Query;
+
   public queryResult: any[] = [];
 
-  constructor(private projector: Projector, private selector: Selector) {
+  constructor(private projector: Projector, private selector: Selector, private provider: DataProvider) {
     super();
   }
 
-  executeQuery(data: any[], properties: String[], constraints: Constraint[]) {
+  executeQuery(query?: Query) {
+    if (!query) {
+      return;
+    }
+
+    let data = [];
+    if (query.sourceType === 'Transaction') {
+      data = this.provider.getTransactions(213112);
+    } else if (query.sourceType === 'Account') {
+      data = this.provider.getAccounts(2424);
+    } else {
+      data = this.provider.getBlocks(1, 2);
+    }
+
     const result = [];
 
-    console.log('Data');
-    console.log(data);
+    const constraints = query.constraints;
+    const properties = query.desiredProperties;
 
     data = this.selector.filter(data, constraints);
-
-    console.log('Data filtered');
-    console.log(data);
 
     for (let i = 0; i < data.length; i++) {
       const item = data[i];
@@ -38,6 +51,10 @@ export class CamQueristService extends Querist {
     }
 
     this.queryResult = result;
+  }
+
+  saveQuery(query: Query) {
+    this.query = query;
   }
 
 }

@@ -4,14 +4,34 @@
 }
 
 .visual-querist-container mat-card {
-  width: 30%;
-  margin: 10px 20px;
+  margin: 10px 15px;
   display: inline-block;
   vertical-align: top;
+}
+
+.info-card, .projection-card {
+  width: 25%;
+}
+
+.selection-card {
+  width: 40%
 }
 
 .query-button {
   position: fixed;
   bottom: 32px;
   right: 32px;
+}
+
+.field {
+  width: 150px;
+  margin: 5px;
+}
+
+.operator-field {
+  width: 100px;
+}
+
+.logical-op-field {
+  width: 60px;
 }

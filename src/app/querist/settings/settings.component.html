@@ -1,0 +1,27 @@
+<mat-card class="settings-card">
+
+  <h3>Sottodomini</h3>
+  <p>Definizione dei sottodomini delle query, ovvero di un sottoinsime del totale dei dati, in base alle informazioni (blocco, transizione o account) di interesse</p>
+
+  <h5>Blocchi</h5>
+  <p>Se si vogliono recuperare informazioni relative ai blocchi si potrà scegliere un range degli stessi (max 10 blocchi)</p>
+  <mat-form-field style="margin-right: 20px;">
+    <input matInput placeholder="Numero del blocco di inizio" value="250000" type="number"/>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Numero del blocco di fine" value="250005" type="number"/>
+  </mat-form-field>
+
+  <h5>Transizioni</h5>
+  <p>Se invece è necessario recuperare informazioni relative alle transizioni è possibile lavorare con tutte quelle appartenti ad un dato blocco</p>
+  <mat-form-field>
+    <input matInput placeholder="Numero del blocco" value="10000" type="number"/>
+  </mat-form-field>
+
+  <h5>Account</h5>
+  <p>Anche in questo caso si può definire un blocco in cui cercare i dati relativi ad uno specifico account</p>
+  <mat-form-field>
+    <input matInput placeholder="Numero del blocco" value="250000" type="number"/>
+  </mat-form-field>
+
+</mat-card>
