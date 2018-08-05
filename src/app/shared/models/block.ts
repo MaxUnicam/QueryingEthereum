@@ -2,40 +2,40 @@ import { Decimal } from 'decimal.js';
 
 export interface Block {
 
-  number: Number;
+  number: number;
 
-  hash: String;
+  hash: string;
 
-  parentHash: String;
+  parentHash: string;
 
-  nonce: String;
+  nonce: string;
 
-  sha3Uncles: String;
+  sha3Uncles: string;
 
-  logsBloom: String;
+  logsBloom: string;
 
-  transactionsRoot: String;
+  transactionsRoot: string;
 
-  stateRoot: String;
+  stateRoot: string;
 
-  miner: String;
+  miner: string;
 
   difficulty: Decimal;
 
   totalDifficulty: Decimal;
 
-  size: Number;
+  size: number;
 
-  extraData: String;
+  extraData: string;
 
-  gasLimit: Number;
+  gasLimit: number;
 
-  gasUsed: Number;
+  gasUsed: number;
 
-  timestamp: Number;
+  timestamp: number;
 
-  transactions: String[];
+  transactions: string[];
 
-  uncles: String[];
+  uncles: string[];
 
 }

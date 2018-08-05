@@ -1,9 +1,9 @@
-import { Querist } from './iquerist';
+import { Querist } from './interfaces/iquerist';
 import { Query } from '../models/query';
 
-import { Projector } from './iprojector';
-import { Selector } from './iselector';
-import { DataProvider } from './idataprovider';
+import { Projector } from './interfaces/iprojector';
+import { Selector } from './interfaces/iselector';
+import { DataProvider } from './interfaces/idataprovider';
 
 import { Injectable } from '@angular/core';
 

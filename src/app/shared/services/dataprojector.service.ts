@@ -1,4 +1,4 @@
-import { Projector} from './iprojector';
+import { Projector} from './interfaces/iprojector';
 
 import { Block } from '../models/block';
 import { Transaction } from '../models/transaction';

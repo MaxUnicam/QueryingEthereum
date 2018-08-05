@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { DataProvider } from './services/idataprovider';
+import { DataProvider } from './services/interfaces/idataprovider';
 import { LocalDataProviderService } from './services/localdataprovider.service';
 import { FakeDataProviderService } from './services/fakedataprovider.service';
-import { Projector } from './services/iprojector';
+import { Projector } from './services/interfaces/iprojector';
 import { DataProjectorService } from './services/dataprojector.service';
-import { Selector } from './services/iselector';
+import { Selector } from './services/interfaces/iselector';
 import { DataSelectorService } from './services/dataselector.service';
-import { Querist } from './services/iquerist';
+import { Querist } from './services/interfaces/iquerist';
 import { CamQueristService } from './services/camquerist.service';
 import { SideMenuComponent } from './side-menu/side-menu.component';
 

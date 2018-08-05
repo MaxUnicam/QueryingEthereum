@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Projector } from '../../shared/services/iprojector';
-import { Querist } from '../../shared/services/iquerist';
+import { Projector } from '../../shared/services/interfaces/iprojector';
+import { Querist } from '../../shared/services/interfaces/iquerist';
 
 import { Router } from '@angular/router';
 
 import { Constraint, LogicalOperator } from '../../shared/models/constraint';
 import { Query } from '../../shared/models/query';
 
-// import Web3 from 'web3';
+import { LocalDataProviderService } from '../../shared/services/localdataprovider.service';
 
 @Component({
   selector: 'app-visual-querist',
@@ -33,7 +33,7 @@ export class VisualQueristComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-
+    const provider = new LocalDataProviderService();
   }
 
   updateSelection(type) {

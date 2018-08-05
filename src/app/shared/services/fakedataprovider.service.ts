@@ -1,4 +1,4 @@
-import { DataProvider } from './idataprovider';
+import { DataProvider } from './interfaces/idataprovider';
 import { Account } from '../models/account';
 import { Transaction } from '../models/transaction';
 import { Block } from '../models/block';
@@ -10,11 +10,11 @@ import { Decimal } from 'decimal.js';
 @Injectable()
 export class FakeDataProviderService extends DataProvider {
 
-  getBlock(number: Number | String): Block {
+  getBlock(number: number | String): Block {
     return this.createBlockArray()[0];
   }
 
-  getBlocks(start: Number, end: Number): Block[] {
+  getBlocks(start: number, end: number): Block[] {
     return this.createBlockArray();
   }
 
@@ -22,11 +22,11 @@ export class FakeDataProviderService extends DataProvider {
     return this.createTransaction();
   }
 
-  getTransactionByIndex(blockNumber: Number, txIndex: Number): Transaction {
+  getTransactionByIndex(blockNumber: number, txIndex: number): Transaction {
     return this.createTransaction();
   }
 
-  getTransactions(blockNumber: Number): Transaction[] {
+  getTransactions(blockNumber: number): Transaction[] {
     const transactions = [];
     for (let i = 0; i < 100; i++) {
       transactions.push(this.createTransaction());
@@ -38,7 +38,7 @@ export class FakeDataProviderService extends DataProvider {
     return this.createAccount();
   }
 
-  getAccounts(blockNumber: Number): Account[] {
+  getAccounts(blockNumber: number): Account[] {
     const accounts = [];
     for (let i = 0; i < 10; i++) {
       accounts.push(this.createAccount());

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { DataProvider } from '../../shared/services/idataprovider';
+import { DataProvider } from '../../shared/services/interfaces/idataprovider';
 
-import { Querist } from '../../shared/services/iquerist';
+import { Querist } from '../../shared/services/interfaces/iquerist';
 import { Query } from '../../shared/models/query';
 
 @Component({

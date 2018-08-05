@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Constraint } from '../models/constraint';
+import { Constraint } from '../../models/constraint';
 
 export interface ISelector {
 

@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
-import { DataProvider } from '../../shared/services/idataprovider';
-import { Projector } from '../../shared/services/iprojector';
+import { DataProvider } from '../../shared/services/interfaces/idataprovider';
+import { Projector } from '../../shared/services/interfaces/iprojector';
 
 import { Block } from '../../shared/models/block';
 import { Transaction } from '../../shared/models/transaction';
 import { Account } from '../../shared/models/account';
-import { Selector } from '../../shared/services/iselector';
+import { Selector } from '../../shared/services/interfaces/iselector';
 
 @Component({
   selector: 'app-console-debug',

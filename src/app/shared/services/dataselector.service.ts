@@ -1,4 +1,4 @@
-import { Selector } from './iselector';
+import { Selector } from './interfaces/iselector';
 import { Constraint, LogicalOperator } from '../models/constraint';
 
 import { Injectable } from '@angular/core';

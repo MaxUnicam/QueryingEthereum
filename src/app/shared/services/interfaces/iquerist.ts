@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Query } from '../models/query';
+import { Query } from '../../models/query';
 
 
 export interface IQuerist {
