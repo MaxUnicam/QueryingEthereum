@@ -6,6 +6,7 @@ import { Block } from '../models/block';
 import { Injectable } from '@angular/core';
 
 import Web3 from 'web3';
+import { Observable } from 'rxjs';
 
 
 @Injectable()
@@ -25,46 +26,58 @@ export class LocalDataProviderService extends DataProvider {
     // console.log(transaction);
   }
 
-  getBlock(number: number | String): Block {
-    return this.web3.eth.getBlock(number) as Block;
+  getBlock(number: number | String): Observable<Block> {
+    return new Observable((observer) => {
+      observer.next(this.web3.eth.getBlock(number) as Block);
+    });
   }
 
-  getBlocks(start: number, end: number): Block[] {
-    const blocks: Block[] = [];
-    for (let i = start; i < end; i ++) {
-      blocks.push(this.web3.eth.getBlock(i) as Block);
-    }
+  getBlocks(start: number, end: number): Observable<Block> {
+    return new Observable((observer) => {
+      for (let i = start; i < end; i ++) {
+        observer.next(this.web3.eth.getBlock(i) as Block);
+      }
 
-    return blocks;
+      observer.complete();
+    });
   }
 
-  getTransaction(hash: String): Transaction {
-    return this.web3.eth.getTransaction(hash) as Transaction;
+  getTransaction(hash: String): Observable<Transaction> {
+    return new Observable((observer) => {
+      observer.next(this.web3.eth.getTransaction(hash) as Transaction);
+    });
   }
 
-  getTransactionByIndex(blockNumber: number, txIndex: number): Transaction {
-    return this.web3.eth.getTransactionFromBlock(blockNumber, txIndex) as Transaction;
+  getTransactions(start: number, end: number): Observable<Transaction> {
+    return new Observable((observer) => {
+      for (let j = start; j < end; j ++) {
+        const block = this.web3.eth.getBlock(j) as Block;
+        if (!block) {
+          continue;
+        }
+
+        for (let i = 0; i < block.transactions.length; i ++) {
+          const hash = block.transactions[i];
+          const item = this.web3.eth.getTransaction(hash) as Transaction;
+          observer.next(item);
+        }
+      }
+
+      observer.complete();
+    });
   }
 
-  getTransactions(blockNumber: number): Transaction[] {
-    const transactions: Transaction[] = [];
-    const block = this.getBlock(blockNumber);
+  getAccount(hash: String): Observable<Account> {
+    return new Observable((observer) => {
+      const balance = this.web3.eth.getBalance(hash, 'latest');
+      const account = {
+        hash: hash,
+        balance: balance
+      };
 
-    for (let i = 0; i < block.transactions.length; i ++) {
-      const hash = block.transactions[i];
-      const item = this.web3.eth.getTransaction(hash);
-      transactions.push(item);
-    }
-
-    return transactions;
-  }
-
-  getAccount(hash: String): Account {
-    return null;
-  }
-
-  getAccounts(blockNumber: number): Account[] {
-    return null;
+      observer.next(account);
+      observer.complete();
+    });
   }
 
 }

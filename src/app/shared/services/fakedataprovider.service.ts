@@ -6,47 +6,53 @@ import { Block } from '../models/block';
 import { Injectable } from '@angular/core';
 
 import { Decimal } from 'decimal.js';
+import { Observable } from 'rxjs';
+
 
 @Injectable()
 export class FakeDataProviderService extends DataProvider {
 
-  getBlock(number: number | String): Block {
-    return this.createBlockArray()[0];
+  getBlock(number: number | String): Observable<Block> {
+    return new Observable((observer) => {
+      observer.next(this.createBlockArray()[0]);
+      observer.complete();
+    });
   }
 
-  getBlocks(start: number, end: number): Block[] {
-    return this.createBlockArray();
+  getBlocks(start: number, end: number): Observable<Block> {
+    return new Observable((observer) => {
+      const blocks = this.createBlockArray();
+      for (let i = 0; i < blocks.length; i ++) {
+        observer.next(blocks[i]);
+      }
+
+      observer.complete();
+    });
   }
 
-  getTransaction(hash: String): Transaction {
-    return this.createTransaction();
+  getTransaction(hash: String): Observable<Transaction> {
+    return new Observable((observer) => {
+      observer.next(this.createTransaction());
+      observer.complete();
+    });
   }
 
-  getTransactionByIndex(blockNumber: number, txIndex: number): Transaction {
-    return this.createTransaction();
+  getTransactions(start: number, end: number): Observable<Transaction> {
+    return new Observable((observer) => {
+      for (let i = 0; i < 100; i++) {
+        observer.next(this.createTransaction());
+      }
+
+      observer.complete();
+    });
   }
 
-  getTransactions(blockNumber: number): Transaction[] {
-    const transactions = [];
-    for (let i = 0; i < 100; i++) {
-      transactions.push(this.createTransaction());
-    }
-    return transactions;
+  getAccount(hash: String): Observable<Account> {
+    return new Observable((observer) => {
+      observer.next(this.createAccount());
+      observer.complete();
+    });
   }
-
-  getAccount(hash: String): Account {
-    return this.createAccount();
-  }
-
-  getAccounts(blockNumber: number): Account[] {
-    const accounts = [];
-    for (let i = 0; i < 10; i++) {
-      accounts.push(this.createAccount());
-    }
-
-    return accounts;
-  }
-
 
 
   private createBlockArray(): Block[] {
@@ -84,7 +90,6 @@ export class FakeDataProviderService extends DataProvider {
     return data;
   }
 
-
   private createTransaction() {
     return <Transaction> {
       hash: '0x9fc76417374aa880d4449a1f7f31ec597f00b1f6f3dd2d66f4c9c6c445836d8b',
@@ -100,7 +105,6 @@ export class FakeDataProviderService extends DataProvider {
       input: '0x57cb2fc4'
     };
   }
-
 
   private createAccount() {
     return <Account> {

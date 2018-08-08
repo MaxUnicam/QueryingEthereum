@@ -4,22 +4,20 @@ import { Account } from '../../models/account';
 import { Transaction } from '../../models/transaction';
 import { Block } from '../../models/block';
 
+import { Observable } from 'rxjs';
+
 
 export interface IDataProvider {
 
-  getBlock(number: number | String): Block;
+  getBlock(number: number | String): Observable<Block>;
 
-  getBlocks(start: number, end: number): Block[];
+  getBlocks(start: number, end: number): Observable<Block>;
 
-  getTransaction(hash: String): Transaction;
+  getTransaction(hash: string): Observable<Transaction>;
 
-  getTransactionByIndex(blockNumber: number, txIndex: number): Transaction;
+  getTransactions(start: number, end: number): Observable<Transaction>;
 
-  getTransactions(blockNumber: number): Transaction[];
-
-  getAccount(hash: String): Account;
-
-  getAccounts(blockNumber: number): Account[];
+  getAccount(hash: string): Observable<Account>;
 
 }
 
@@ -27,18 +25,14 @@ export interface IDataProvider {
 @Injectable()
 export abstract class DataProvider implements IDataProvider {
 
-  abstract getBlock(number: number | String): Block;
+  abstract getBlock(number: number | String): Observable<Block>;
 
-  abstract getBlocks(start: number, end: number): Block[];
+  abstract getBlocks(start: number, end: number): Observable<Block>;
 
-  abstract getTransaction(hash: String): Transaction;
+  abstract getTransaction(hash: String): Observable<Transaction>;
 
-  abstract getTransactionByIndex(blockNumber: number, txIndex: number): Transaction;
+  abstract getTransactions(start: number, end: number): Observable<Transaction>;
 
-  abstract getTransactions(blockNumber: number): Transaction[];
-
-  abstract getAccount(hash: String): Account;
-
-  abstract getAccounts(blockNumber: number): Account[];
+  abstract getAccount(hash: String): Observable<Account>;
 
 }

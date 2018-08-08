@@ -25,7 +25,7 @@ import { LogicalPipe } from './pipes/logical.pipe';
     MatIconModule
   ],
   providers: [
-    // { provide: DataProvider, useClass: LocalDataProviderService }
+    // { provide: DataProvider, useClass: LocalDataProviderService },
     { provide: DataProvider, useClass: FakeDataProviderService },
     { provide: Projector, useClass: DataProjectorService },
     { provide: Selector, useClass: DataSelectorService },

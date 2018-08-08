@@ -27,6 +27,10 @@ export class DataSelectorService extends Selector {
     return result;
   }
 
+  isValid(item: any, constraints: Constraint[]): boolean {
+    return this.respectsAllConstraints(item, constraints);
+  }
+
   private respectsAllConstraints(source: any, constraints: Constraint[]): boolean {
     if (!source) {
       return false;

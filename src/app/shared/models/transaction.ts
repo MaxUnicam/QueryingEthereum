@@ -2,26 +2,26 @@ import { Decimal } from 'decimal.js';
 
 export interface Transaction {
 
-  hash: String;
+  hash: string;
 
-  nonce: Number;
+  nonce: number;
 
-  blockHash: String;
+  blockHash: string;
 
-  blockNumber: Number;
+  blockNumber: number;
 
-  transactionIndex: Number;
+  transactionIndex: number;
 
-  from: String;
+  from: string;
 
-  to: String;
+  to: string;
 
   value: Decimal;
 
-  gas: Number;
+  gas: number;
 
   gasPrice: Decimal;
 
-  input: String;
+  input: string;
 
 }

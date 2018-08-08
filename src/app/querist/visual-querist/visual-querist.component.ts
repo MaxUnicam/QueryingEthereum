@@ -9,6 +9,7 @@ import { Constraint, LogicalOperator } from '../../shared/models/constraint';
 import { Query } from '../../shared/models/query';
 
 import { LocalDataProviderService } from '../../shared/services/localdataprovider.service';
+import { Transaction } from '../../shared/models/transaction';
 
 @Component({
   selector: 'app-visual-querist',
@@ -33,7 +34,17 @@ export class VisualQueristComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    const provider = new LocalDataProviderService();
+    // const provider = new LocalDataProviderService();
+    // provider.getTransactions(5823990, 5823994).subscribe(
+    //   (transaction: Transaction) => console.log(transaction),
+    //   (msg) => console.log(msg),
+    //   () => console.log('Completed')
+    // );
+    // provider.getTransactions(312510, 312810).subscribe(
+    //   (transaction: Transaction) => console.log(transaction),
+    //   (msg) => console.log(msg),
+    //   () => console.log('Completed')
+    // );
   }
 
   updateSelection(type) {
