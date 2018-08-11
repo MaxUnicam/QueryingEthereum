@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { SharedModule } from './shared/shared.module';
 import { QueristModule } from './querist/querist.module';
+import { LayoutModule} from './layout/layout.module';
 
 import { AppComponent } from './app.component';
 
@@ -15,7 +16,8 @@ import { AppComponent } from './app.component';
     BrowserModule,
     SharedModule,
     BrowserAnimationsModule,
-    QueristModule
+    QueristModule,
+    LayoutModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -10,11 +10,7 @@ import { Selector } from './services/interfaces/iselector';
 import { DataSelectorService } from './services/dataselector.service';
 import { Querist } from './services/interfaces/iquerist';
 import { CamQueristService } from './services/camquerist.service';
-import { Settings } from './services/interfaces/isettings';
-import { InMemorySettingsService } from './services/memorysettings.service';
-import { SideMenuComponent } from './side-menu/side-menu.component';
 
-import { MatListModule, MatToolbarModule, MatIconModule } from '@angular/material';
 import { ConstraintPipe } from './pipes/constraint.pipe';
 import { LogicalPipe } from './pipes/logical.pipe';
 
@@ -22,23 +18,18 @@ import { LogicalPipe } from './pipes/logical.pipe';
 @NgModule({
   imports: [
     CommonModule,
-    MatListModule,
-    MatToolbarModule,
-    MatIconModule
   ],
   providers: [
     // { provide: DataProvider, useClass: LocalDataProviderService },
     { provide: DataProvider, useClass: FakeDataProviderService },
     { provide: Projector, useClass: DataProjectorService },
     { provide: Selector, useClass: DataSelectorService },
-    { provide: Querist, useClass: CamQueristService },
-    { provide: Settings, useClass: InMemorySettingsService }
+    { provide: Querist, useClass: CamQueristService }
   ],
   exports: [
-    SideMenuComponent,
     ConstraintPipe,
     LogicalPipe
   ],
-  declarations: [ SideMenuComponent, ConstraintPipe, LogicalPipe ]
+  declarations: [ ConstraintPipe, LogicalPipe ]
 })
 export class SharedModule { }

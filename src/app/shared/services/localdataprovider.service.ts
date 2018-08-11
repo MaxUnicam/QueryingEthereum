@@ -2,7 +2,7 @@ import { DataProvider } from './interfaces/idataprovider';
 import { Account } from '../models/account';
 import { Transaction } from '../models/transaction';
 import { Block } from '../models/block';
-import { Settings } from '../services/interfaces/isettings';
+import { Settings } from '../../settings/isettings';
 
 import { Injectable } from '@angular/core';
 

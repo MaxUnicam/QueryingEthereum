@@ -1,4 +1,4 @@
-import { Settings } from './interfaces/isettings';
+import { Settings } from './isettings';
 
 import { Injectable } from '@angular/core';
 
