@@ -2,6 +2,7 @@ import { DataProvider } from './interfaces/idataprovider';
 import { Account } from '../models/account';
 import { Transaction } from '../models/transaction';
 import { Block } from '../models/block';
+import { Settings } from '../services/interfaces/isettings';
 
 import { Injectable } from '@angular/core';
 
@@ -16,9 +17,9 @@ export class LocalDataProviderService extends DataProvider {
 
   private web3: Web3;
 
-  constructor() {
+  constructor(private settings: Settings) {
     super();
-    this.web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'));
+    this.web3 = new Web3(new Web3.providers.HttpProvider(settings.ethereumNodeUrl));
     // console.log(this.getTransactions(5823994));
     // console.log(this.getBlock(this.web3.eth.blockNumber - 10));
     // console.log(this.getBlocks(3150, 3180));

@@ -10,6 +10,8 @@ import { Selector } from './services/interfaces/iselector';
 import { DataSelectorService } from './services/dataselector.service';
 import { Querist } from './services/interfaces/iquerist';
 import { CamQueristService } from './services/camquerist.service';
+import { Settings } from './services/interfaces/isettings';
+import { InMemorySettingsService } from './services/memorysettings.service';
 import { SideMenuComponent } from './side-menu/side-menu.component';
 
 import { MatListModule, MatToolbarModule, MatIconModule } from '@angular/material';
@@ -30,6 +32,7 @@ import { LogicalPipe } from './pipes/logical.pipe';
     { provide: Projector, useClass: DataProjectorService },
     { provide: Selector, useClass: DataSelectorService },
     { provide: Querist, useClass: CamQueristService },
+    { provide: Settings, useClass: InMemorySettingsService }
   ],
   exports: [
     SideMenuComponent,

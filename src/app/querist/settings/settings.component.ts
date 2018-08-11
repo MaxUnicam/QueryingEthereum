@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { Settings } from '../../shared/services/interfaces/isettings';
+
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
@@ -7,9 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SettingsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private settings: Settings) { }
 
   ngOnInit() {
+
   }
 
 }
