@@ -3,6 +3,8 @@ import { Constraint, LogicalOperator } from '../models/constraint';
 
 import { Injectable } from '@angular/core';
 
+import { BigNumeber} from 'bignumber.js';
+
 
 @Injectable()
 export class DataSelectorService extends Selector {
@@ -58,6 +60,37 @@ export class DataSelectorService extends Selector {
 
   private respectsConstraint(object: any, constraint: Constraint): boolean {
     const value = object[constraint.property as string];
+
+    if (typeof(value) === 'object') {
+      const x = new BigNumeber(value);
+      const y = new BigNumeber(constraint.value);
+      if (x.isNaN() || y.isNaN()) {
+        return;
+      }
+
+      switch (constraint.operator) {
+        case '=': {
+          return x.equals(y);
+        }
+        case '!=': {
+          return !x.equals(y);
+        }
+        case '>': {
+          return x.greaterThan(y);
+        }
+        case '<': {
+          return x.lessThan(y);
+        }
+        case '>=': {
+          return x.greaterThanOrEqualTo(y);
+        }
+        case '<=': {
+          return x.lessThanOrEqualTo(y);
+        }
+        default: { return false; }
+      }
+    }
+
     switch (constraint.operator) {
       case '=': {
         return value == constraint.value;

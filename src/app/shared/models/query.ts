@@ -2,9 +2,9 @@ import { Constraint } from './constraint';
 
 export interface Query {
 
-  sourceType: String;
+  sourceType: string;
 
-  desiredProperties: String[];
+  desiredProperties: string[];
 
   constraints: Constraint[];
 

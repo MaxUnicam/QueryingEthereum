@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 
 export interface IDataProvider {
 
-  getBlock(number: number | String): Observable<Block>;
+  getBlock(number: number | string): Observable<Block>;
 
   getBlocks(start: number, end: number): Observable<Block>;
 

@@ -9,6 +9,7 @@ import { Injectable } from '@angular/core';
 import Web3 from 'web3';
 import { Observable } from 'rxjs';
 
+import { BigNumber } from 'bignumber.js';
 
 @Injectable()
 export class LocalDataProviderService extends DataProvider {
@@ -27,7 +28,7 @@ export class LocalDataProviderService extends DataProvider {
     // console.log(transaction);
   }
 
-  getBlock(number: number | String): Observable<Block> {
+  getBlock(number: number | string): Observable<Block> {
     return new Observable((observer) => {
       observer.next(this.web3.eth.getBlock(number) as Block);
     });
@@ -68,9 +69,9 @@ export class LocalDataProviderService extends DataProvider {
     });
   }
 
-  getAccount(hash: String): Observable<Account> {
+  getAccount(hash: string): Observable<Account> {
     return new Observable((observer) => {
-      const balance = this.web3.eth.getBalance(hash, 'latest');
+      const balance = this.web3.eth.getBalance(hash, this.web3.eth.blockNumber) as BigNumber;
       const account = {
         hash: hash,
         balance: balance

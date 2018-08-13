@@ -10,6 +10,8 @@ import { Query } from '../../shared/models/query';
 
 import { LocalDataProviderService } from '../../shared/services/localdataprovider.service';
 import { Transaction } from '../../shared/models/transaction';
+import { Account } from '../../shared/models/account';
+import { Settings } from '../../settings/isettings';
 
 @Component({
   selector: 'app-visual-querist',
@@ -18,23 +20,30 @@ import { Transaction } from '../../shared/models/transaction';
 })
 export class VisualQueristComponent implements OnInit {
 
-  private operators: String[] = [ '=', '!=', '>', '>=', '<=', '<' ];
+  private operators: string[] = [ '=', '!=', '>', '>=', '<=', '<' ];
   private constraints: Constraint[] = [
     { property: '', operator: '', value: '' }
   ];
 
   private dataType = 'Block';
   public logicalOperators = LogicalOperator;
-  public currentProperties: String[] = [];
-  public selectedProperties: String[] = [];
+  public currentProperties: string[] = [];
+  public selectedProperties: string[] = [];
 
   constructor(
     private projector: Projector,
     private querist: Querist,
-    private router: Router) { }
+    private router: Router,
+    private settings: Settings) { }
 
   ngOnInit() {
-    // const provider = new LocalDataProviderService();
+    // const provider = new LocalDataProviderService(this.settings);
+    // provider.getAccount('0x407d73d8a49eeb85d32cf465507dd71d507100c1').subscribe(
+    //   (account: Account) => console.log(account),
+    //   (msg) => console.log(msg),
+    //   () => console.log('Completed')
+    // );
+
     // provider.getTransactions(5823990, 5823994).subscribe(
     //   (transaction: Transaction) => console.log(transaction),
     //   (msg) => console.log(msg),
@@ -48,6 +57,7 @@ export class VisualQueristComponent implements OnInit {
   }
 
   updateSelection(type) {
+    this.constraints = [ { property: '', operator: '', value: '' } ];
     this.dataType = type;
     if (type === 'Block') {
       this.currentProperties = this.projector.getBlockProperties();
@@ -55,6 +65,7 @@ export class VisualQueristComponent implements OnInit {
       this.currentProperties = this.projector.getTransactionProperties();
     } else if (type === 'Account') {
       this.currentProperties = this.projector.getAccountProperties();
+      this.constraints = [ { property: 'hash', operator: '=', value: '' } ];
     } else {
       this.currentProperties = [];
     }

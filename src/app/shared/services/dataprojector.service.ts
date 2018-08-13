@@ -10,7 +10,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class DataProjectorService extends Projector {
 
-  getProperties(source: any): String[] {
+  getProperties(source: any): string[] {
     if (!source) {
       return [];
     }
@@ -18,7 +18,7 @@ export class DataProjectorService extends Projector {
     return Object.keys(source);
   }
 
-  getBlockProperties(): String[] {
+  getBlockProperties(): string[] {
     const app: Block = {
       number: 0,
       hash: '',
@@ -42,7 +42,7 @@ export class DataProjectorService extends Projector {
     return this.getProperties(app);
   }
 
-  getTransactionProperties(): String[] {
+  getTransactionProperties(): string[] {
     const app: Transaction = {
       hash: '',
       nonce: 0,
@@ -59,7 +59,7 @@ export class DataProjectorService extends Projector {
     return this.getProperties(app);
   }
 
-  getAccountProperties(): String[] {
+  getAccountProperties(): string[] {
     const app: Account = {
       hash: '',
       balance: null
@@ -67,7 +67,7 @@ export class DataProjectorService extends Projector {
     return this.getProperties(app);
   }
 
-  getValues(source: any, properties: String[]): any[] {
+  getValues(source: any, properties: string[]): any[] {
     if (!source || !properties) {
       return [];
     }

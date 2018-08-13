@@ -5,14 +5,14 @@ import { Block } from '../models/block';
 
 import { Injectable } from '@angular/core';
 
-import { Decimal } from 'decimal.js';
+import { BigNumeber} from 'bignumber.js';
 import { Observable } from 'rxjs';
 
 
 @Injectable()
 export class FakeDataProviderService extends DataProvider {
 
-  getBlock(number: number | String): Observable<Block> {
+  getBlock(number: number | string): Observable<Block> {
     return new Observable((observer) => {
       observer.next(this.createBlockArray()[0]);
       observer.complete();
@@ -47,9 +47,9 @@ export class FakeDataProviderService extends DataProvider {
     });
   }
 
-  getAccount(hash: String): Observable<Account> {
+  getAccount(hash: string): Observable<Account> {
     return new Observable((observer) => {
-      observer.next(this.createAccount());
+      observer.next(this.createAccount(hash));
       observer.complete();
     });
   }
@@ -71,8 +71,8 @@ export class FakeDataProviderService extends DataProvider {
         transactionsRoot: '0x3a1b03875115b79539e5bd33fb00d8f7b7cd61929d5a3c574f507b8acf415bee',
         stateRoot: '0xf1133199d44695dfa8fd1bcfe424d82854b5cebef75bddd7e40ea94cda515bcb',
         miner: '0x8888f1f195afa192cfee860698584c030f4c9db1',
-        difficulty: new Decimal(i),
-        totalDifficulty: new Decimal(total),
+        difficulty: new BigNumeber(i),
+        totalDifficulty: new BigNumeber(total),
         size: Math.floor(Math.random() * 1000) + 1,
         extraData: '0x',
         gasLimit: Math.floor(Math.random() * 1000000) + 1,
@@ -99,17 +99,17 @@ export class FakeDataProviderService extends DataProvider {
       transactionIndex: Math.floor(Math.random() * 100) + 1,
       from: '0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b',
       to: '0x6295ee1b4f6dd65047762f924ecd367c17eabf8f',
-      value: new Decimal(1999.2131),
+      value: new BigNumeber((Math.random() * 1000) + 1),
       gas: Math.floor(Math.random() * 1000000) + 1,
-      gasPrice: new Decimal(12),
+      gasPrice: new BigNumeber(12),
       input: '0x57cb2fc4'
     };
   }
 
-  private createAccount() {
+  private createAccount(hash: string) {
     return <Account> {
-      hash: '0x9fc76417374aa880d4449a1f7f31ec597f00b1f6f3dd2d66f4c9c6c445836d8b',
-      balance: new Decimal(Math.random() * 100000)
+      hash: hash,
+      balance: new BigNumeber(Math.random() * 100000)
     };
   }
 

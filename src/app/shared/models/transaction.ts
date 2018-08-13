@@ -1,4 +1,4 @@
-import { Decimal } from 'decimal.js';
+import { BigNumeber } from 'bignumber.js';
 
 export interface Transaction {
 
@@ -16,11 +16,11 @@ export interface Transaction {
 
   to: string;
 
-  value: Decimal;
+  value: BigNumeber;
 
   gas: number;
 
-  gasPrice: Decimal;
+  gasPrice: BigNumeber;
 
   input: string;
 

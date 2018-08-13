@@ -3,15 +3,15 @@ import { Injectable } from '@angular/core';
 
 export interface IProjector {
 
-  getProperties(source: any): String[];
+  getProperties(source: any): string[];
 
-  getBlockProperties(): String[];
+  getBlockProperties(): string[];
 
-  getTransactionProperties(): String[];
+  getTransactionProperties(): string[];
 
-  getAccountProperties(): String[];
+  getAccountProperties(): string[];
 
-  getValues(source: any, properties: String[]): any[];
+  getValues(source: any, properties: string[]): any[];
 
   count(source: any): number;
 
@@ -21,15 +21,15 @@ export interface IProjector {
 @Injectable()
 export abstract class Projector implements IProjector {
 
-  abstract getProperties(source: any): String[];
+  abstract getProperties(source: any): string[];
 
-  abstract getBlockProperties(): String[];
+  abstract getBlockProperties(): string[];
 
-  abstract getTransactionProperties(): String[];
+  abstract getTransactionProperties(): string[];
 
-  abstract getAccountProperties(): String[];
+  abstract getAccountProperties(): string[];
 
-  abstract getValues(source: any, properties: String[]): any[];
+  abstract getValues(source: any, properties: string[]): any[];
 
   abstract count(source: any): number;
 

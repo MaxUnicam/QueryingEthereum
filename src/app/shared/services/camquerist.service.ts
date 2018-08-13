@@ -1,14 +1,16 @@
-import { Querist } from './interfaces/iquerist';
+import { Injectable } from '@angular/core';
+
 import { Query } from '../models/query';
+import { Constraint } from '../models/constraint';
 
 import { Projector } from './interfaces/iprojector';
 import { Selector } from './interfaces/iselector';
 import { DataProvider } from './interfaces/idataprovider';
+import { Querist } from './interfaces/iquerist';
 
-import { Injectable } from '@angular/core';
 import { Block } from '../models/block';
-import { Constraint } from '../models/constraint';
 import { Transaction } from '../models/transaction';
+import { Account } from '../models/account';
 
 
 @Injectable()
@@ -36,7 +38,11 @@ export class CamQueristService extends Querist {
         () => console.log(this.queryResult)
       );
     } else if (query.sourceType === 'Account') {
-      // data = this.provider.getAccount('2424');
+      this.provider.getAccount(query.constraints[0].value).subscribe(
+        (account: Account) => this.validate(account, query.constraints, query.desiredProperties),
+        (msg) => console.log('Error Getting Account balance: ', msg),
+        () => console.log(this.queryResult)
+      );
     } else {
       this.provider.getBlocks(1, 2).subscribe(
         (block: Block) => this.validate(block, query.constraints, query.desiredProperties),
@@ -50,7 +56,7 @@ export class CamQueristService extends Querist {
     this.query = query;
   }
 
-  private validate(item: any, constraints: Constraint[], properties: String[]) {
+  private validate(item: any, constraints: Constraint[], properties: string[]) {
     if (this.selector.isValid(item, constraints)) {
       const values = this.projector.getValues(item, properties);
       const t = { };

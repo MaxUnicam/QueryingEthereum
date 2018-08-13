@@ -20,8 +20,8 @@ import { LogicalPipe } from './pipes/logical.pipe';
     CommonModule,
   ],
   providers: [
-    // { provide: DataProvider, useClass: LocalDataProviderService },
-    { provide: DataProvider, useClass: FakeDataProviderService },
+    { provide: DataProvider, useClass: LocalDataProviderService },
+    // { provide: DataProvider, useClass: FakeDataProviderService },
     { provide: Projector, useClass: DataProjectorService },
     { provide: Selector, useClass: DataSelectorService },
     { provide: Querist, useClass: CamQueristService }
