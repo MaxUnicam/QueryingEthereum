@@ -1,0 +1,37 @@
+<div class="container">
+
+  <h3>Aiuto</h3>
+
+  <p>Ecco alcuni consigli e spiegazioni sul funzionamento di questo strumento</p>
+
+  <ol>
+    <li>
+      <h5>Nodo di ethereum</h5>
+      <p>
+        Per poter recuperare le informazioni richieste è necessario configurare un nodo di Ethereum al quale richiedere i dati.
+        Di defualt la configurazione punta ad un nodo locale esposto all'indirizzo: http://localhost:8545.
+        Per far riferimento ad un altro nodo è sufficiente aprire la pagina <a routerLink="settings">Impostazioni</a> e inserire l'indirizzo corretto.
+      </p>
+    </li>
+    <li>
+      <h5>Limiti delle query</h5>
+      <p>
+        In questa sezione delle impostazioni è possibile definire il range dei nodi su cui opera il tool.
+        Si possono impostare due valori: il numero del primo nodo preso in considerazione ed il numero di nodi a partire dal nodo precedente.
+        Come indicato anche nella pagina Impostazioni un numero di nodi troppo alto potrebbe aumentare anche di molto il tempo di interrogazione.
+      </p>
+    </li>
+    <li>
+      <h5>Funzionamento</h5>
+      <p>
+        La pagina principale (quella di interrogazione) è divisa in tre sezioni: l'unità informativa, ovvero l'entità di cui ci interessa raccogliere informazioni;
+        la sezione di interrogazione che permette di costruire query 'a constraint', quindi definendo delle regole scegliendo proprietà, un valore ed un operatore.
+        Inoltre l'utente ha la possibilità di concatenare diversi constraint per definire regole anche complesse.
+        L'ultima sezione è la proiezione, ovvero la scelta delle proprietà di interesse tra tutte quelle messe a disposzione dall'entità scelta nel primo quadrante.
+        <br>
+        Una volta costruita la query l'utente può eseguirla. L'esecuzione avviene in una nuova pagina in cui vengono mostrati i risultati parziali ottenuti fino a quel momento.
+      </p>
+    </li>
+  </ol>
+
+</div>

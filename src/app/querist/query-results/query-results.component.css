@@ -9,3 +9,7 @@
 .progress-bar-container {
   margin: 20px 15px;
 }
+
+.text-small {
+  font-size: small;
+}

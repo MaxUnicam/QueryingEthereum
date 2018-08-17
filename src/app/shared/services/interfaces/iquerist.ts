@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import { Query } from '../../models/query';
 
@@ -9,7 +10,7 @@ export interface IQuerist {
 
   queryResult: any[];
 
-  executeQuery(query?: Query);
+  executeQuery(query?: Query): Observable<any>;
 
   saveQuery(query: Query);
 
@@ -23,7 +24,7 @@ export abstract class Querist implements IQuerist {
 
   queryResult: any[];
 
-  abstract executeQuery(query?: Query);
+  abstract executeQuery(query?: Query): Observable<any>;
 
   abstract saveQuery(query: Query);
 

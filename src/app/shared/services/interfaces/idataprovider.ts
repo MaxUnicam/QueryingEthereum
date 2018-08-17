@@ -9,6 +9,8 @@ import { Observable } from 'rxjs';
 
 export interface IDataProvider {
 
+  getBlockNumber(): number;
+
   getBlock(number: number | string): Observable<Block>;
 
   getBlocks(start: number, end: number): Observable<Block>;
@@ -24,6 +26,8 @@ export interface IDataProvider {
 
 @Injectable()
 export abstract class DataProvider implements IDataProvider {
+
+  abstract getBlockNumber(): number;
 
   abstract getBlock(number: number | String): Observable<Block>;
 

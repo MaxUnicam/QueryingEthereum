@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { SettingsComponent } from './settings/settings.component';
 
@@ -14,6 +15,7 @@ import {
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
     MatCardModule,
     MatInputModule
   ],

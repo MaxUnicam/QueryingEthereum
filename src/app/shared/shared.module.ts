@@ -14,10 +14,13 @@ import { CamQueristService } from './services/camquerist.service';
 import { ConstraintPipe } from './pipes/constraint.pipe';
 import { LogicalPipe } from './pipes/logical.pipe';
 
+import { SettingsModule } from '../settings/settings.module';
+import { HelpComponent } from './help/help.component';
 
 @NgModule({
   imports: [
     CommonModule,
+    SettingsModule
   ],
   providers: [
     { provide: DataProvider, useClass: LocalDataProviderService },
@@ -28,8 +31,9 @@ import { LogicalPipe } from './pipes/logical.pipe';
   ],
   exports: [
     ConstraintPipe,
-    LogicalPipe
+    LogicalPipe,
+    HelpComponent
   ],
-  declarations: [ ConstraintPipe, LogicalPipe ]
+  declarations: [ ConstraintPipe, LogicalPipe, HelpComponent ]
 })
 export class SharedModule { }

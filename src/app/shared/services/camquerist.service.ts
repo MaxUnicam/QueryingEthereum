@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable, Observer } from 'rxjs';
 
 import { Query } from '../models/query';
 import { Constraint } from '../models/constraint';
@@ -7,6 +8,7 @@ import { Projector } from './interfaces/iprojector';
 import { Selector } from './interfaces/iselector';
 import { DataProvider } from './interfaces/idataprovider';
 import { Querist } from './interfaces/iquerist';
+import { Settings } from '../../settings/isettings';
 
 import { Block } from '../models/block';
 import { Transaction } from '../models/transaction';
@@ -21,35 +23,48 @@ export class CamQueristService extends Querist {
 
   constructor(private projector: Projector,
     private selector: Selector,
-    private provider: DataProvider) { super(); }
+    private provider: DataProvider,
+    private settings: Settings) { super(); }
 
-  executeQuery(query?: Query) {
-    if (!query) {
-      query = this.query;
+  executeQuery(query?: Query): Observable<any> {
+    return new Observable((observer) => {
+      this.queryResult = [];
+
       if (!query) {
-        return;
+        query = this.query;
+        if (!query) {
+          observer.complete();
+          return;
+        }
       }
-    }
 
-    if (query.sourceType === 'Transaction') {
-      this.provider.getTransactions(5823990, 5823995).subscribe(
-        (transaction: Transaction) => this.validate(transaction, query.constraints, query.desiredProperties),
-        (msg) => console.log('Error Getting Transaction: ', msg),
-        () => console.log(this.queryResult)
-      );
-    } else if (query.sourceType === 'Account') {
-      this.provider.getAccount(query.constraints[0].value).subscribe(
-        (account: Account) => this.validate(account, query.constraints, query.desiredProperties),
-        (msg) => console.log('Error Getting Account balance: ', msg),
-        () => console.log(this.queryResult)
-      );
-    } else {
-      this.provider.getBlocks(1, 2).subscribe(
-        (block: Block) => this.validate(block, query.constraints, query.desiredProperties),
-        (msg) => console.log('Error Getting Block: ', msg),
-        () => console.log(this.queryResult)
-      );
-    }
+      // console.log('query limits: ');
+      // console.log(this.settings.queryStartBlock);
+      // console.log(this.settings.numberOfBlocks);
+
+      let endBlock = this.settings.queryStartBlock as number;
+      endBlock += this.settings.numberOfBlocks as number;
+
+      if (query.sourceType === 'Transaction') {
+        this.provider.getTransactions(this.settings.queryStartBlock, endBlock).subscribe(
+          (transaction: Transaction) => this.validate(transaction, query.constraints, query.desiredProperties),
+          (msg) => console.log('Error Getting Transaction: ', msg),
+          () => this.completeQuery(observer)
+        );
+      } else if (query.sourceType === 'Account') {
+        this.provider.getAccount(query.constraints[0].value).subscribe(
+          (account: Account) => this.validate(account, query.constraints, query.desiredProperties),
+          (msg) => console.log('Error Getting Account balance: ', msg),
+          () => this.completeQuery(observer)
+        );
+      } else {
+        this.provider.getBlocks(this.settings.queryStartBlock, endBlock).subscribe(
+          (block: Block) => this.validate(block, query.constraints, query.desiredProperties),
+          (msg) => console.log('Error Getting Block: ', msg),
+          () => this.completeQuery(observer)
+        );
+      }
+    });
   }
 
   saveQuery(query: Query) {
@@ -66,6 +81,11 @@ export class CamQueristService extends Querist {
 
       this.queryResult.push(t);
     }
+  }
+
+  private completeQuery(observer: Observer<any>) {
+    console.log(this.queryResult);
+    observer.complete();
   }
 
 }

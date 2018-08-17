@@ -15,8 +15,11 @@ export class QueryResultsComponent implements OnInit {
 
   ngOnInit() {
     this.isQuerying = true;
-    this.querist.executeQuery();
-    this.isQuerying = false;
+    this.querist.executeQuery().subscribe(
+      (value: any) => console.log(value),
+      (msg) => console.log('Error executing query: ', msg),
+      () => this.isQuerying = false
+    );
   }
 
 }

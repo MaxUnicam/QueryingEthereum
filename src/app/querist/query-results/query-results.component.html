@@ -6,8 +6,7 @@
   </div>
 
 
-    <h3 style="margin: 16px;">Risultati</h3>
-    <!-- ({{querist.queryResult.length}}) -->
+    <h3 style="margin: 16px;">Risultati <span class="text-small">[{{querist.queryResult.length}}]</span></h3>
     <div *ngFor="let result of querist.queryResult" class="result-item">
       <mat-card>
         <p style="margin: 1px;">{{result | json}}</p>

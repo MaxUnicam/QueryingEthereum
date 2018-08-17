@@ -6,6 +6,7 @@ import { SideMenuComponent } from './side-menu/side-menu.component';
 import { VisualQueristComponent } from '../querist/visual-querist/visual-querist.component';
 import { QueryResultsComponent } from '../querist/query-results/query-results.component';
 import { SettingsComponent } from '../settings/settings/settings.component';
+import { HelpComponent } from '../shared/help/help.component';
 
 import { RouterModule, Routes } from '@angular/router';
 
@@ -24,6 +25,7 @@ const appRoutes: Routes = [
   { path: 'querist', component: VisualQueristComponent },
   { path: 'results', component: QueryResultsComponent },
   { path: 'settings', component: SettingsComponent },
+  { path: 'help', component: HelpComponent },
   { path: '',
     redirectTo: 'querist',
     pathMatch: 'full'

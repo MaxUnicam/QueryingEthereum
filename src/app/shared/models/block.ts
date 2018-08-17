@@ -1,4 +1,4 @@
-import { BigNumeber } from 'bignumber.js';
+import { BigNumber } from 'bignumber.js';
 
 export interface Block {
 
@@ -20,9 +20,9 @@ export interface Block {
 
   miner: string;
 
-  difficulty: BigNumeber;
+  difficulty: BigNumber;
 
-  totalDifficulty: BigNumeber;
+  totalDifficulty: BigNumber;
 
   size: number;
 

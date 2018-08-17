@@ -8,9 +8,15 @@ export class InMemorySettingsService extends Settings {
 
   public ethereumNodeUrl: string;
 
+  public queryStartBlock: number;
+
+  public numberOfBlocks: number;
+
   constructor() {
     super();
     this.ethereumNodeUrl = 'http://localhost:8545';
+    this.queryStartBlock = 5823904;
+    this.numberOfBlocks = 50;
   }
 
 }

@@ -17,6 +17,7 @@ export class LocalDataProviderService extends DataProvider {
   // ./parity --jsonrpc-cors all
 
   private web3: Web3;
+  private delayInms = 100;
 
   constructor(private settings: Settings) {
     super();
@@ -28,25 +29,42 @@ export class LocalDataProviderService extends DataProvider {
     // console.log(transaction);
   }
 
+  getBlockNumber(): number {
+    return this.web3.eth.blockNumber;
+  }
+
   getBlock(number: number | string): Observable<Block> {
     return new Observable((observer) => {
-      observer.next(this.web3.eth.getBlock(number) as Block);
+      const block = this.web3.eth.getBlock(number) as Block;
+      block.difficulty = block.difficulty.dividedBy(new BigNumber('1000000000000000000'));
+      block.totalDifficulty = block.totalDifficulty.dividedBy(new BigNumber('1000000000000000000'));
+      observer.next(block);
+      observer.complete();
     });
   }
 
   getBlocks(start: number, end: number): Observable<Block> {
     return new Observable((observer) => {
       for (let i = start; i < end; i ++) {
-        observer.next(this.web3.eth.getBlock(i) as Block);
+        setTimeout((() => {
+          const block = this.web3.eth.getBlock(i) as Block;
+          block.difficulty = block.difficulty.dividedBy(new BigNumber('1000000000000000000'));
+          block.totalDifficulty = block.totalDifficulty.dividedBy(new BigNumber('1000000000000000000'));
+          observer.next(block);
+          if (i + 1 === end) {
+            observer.complete();
+          }
+        }), this.delayInms);
       }
-
-      observer.complete();
     });
   }
 
   getTransaction(hash: String): Observable<Transaction> {
     return new Observable((observer) => {
-      observer.next(this.web3.eth.getTransaction(hash) as Transaction);
+      const transaction = this.web3.eth.getTransaction(hash) as Transaction;
+      transaction.value = transaction.value.dividedBy(new BigNumber('1000000000000000000'));
+      observer.next(transaction);
+      observer.complete();
     });
   }
 
@@ -59,13 +77,18 @@ export class LocalDataProviderService extends DataProvider {
         }
 
         for (let i = 0; i < block.transactions.length; i ++) {
-          const hash = block.transactions[i];
-          const item = this.web3.eth.getTransaction(hash) as Transaction;
-          observer.next(item);
+          setTimeout((() => {
+            const hash = block.transactions[i];
+            const item = this.web3.eth.getTransaction(hash) as Transaction;
+            item.value = item.value.dividedBy(new BigNumber('1000000000000000000'));
+            observer.next(item);
+
+            if (j + 1 === end && i + 1 === block.transactions.length) {
+              observer.complete();
+            }
+          }), this.delayInms);
         }
       }
-
-      observer.complete();
     });
   }
 
@@ -74,7 +97,7 @@ export class LocalDataProviderService extends DataProvider {
       const balance = this.web3.eth.getBalance(hash, this.web3.eth.blockNumber) as BigNumber;
       const account = {
         hash: hash,
-        balance: balance
+        balance: balance.dividedBy(new BigNumber('1000000000000000000'))
       };
 
       observer.next(account);

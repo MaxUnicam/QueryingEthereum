@@ -20,7 +20,7 @@ export class SideMenuComponent implements OnInit {
   }
 
   goToHelp() {
-
+    this.router.navigate(['help']);
   }
 
 }
