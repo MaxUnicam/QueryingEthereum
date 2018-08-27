@@ -1,16 +1,16 @@
 \section{Blockchain}
-Una blockchain si basa su un sistema definito Distributed Ledger Technology (DLT), ossia una tecnologia basata su un registro distrbuito. Alcune caratteristiche fondamentali:
+La blockchain è una tecnologia che si basa sul concetto di Distributed Ledger Technology (DLT), ossia un registro distrbuito digitale. Alcune caratteristiche fondamentali:
 \begin{itemize}
-    \item {\bfseries decentrallizazione}: non c'è un single-point of failure, non ci si affida a servizi proprietari, essa è composta da nodi e chiunque può mettere in piedi diversi nodi molto semplicemente (per questo si legge spesso che la blockchain è "democratica")
-    \item {\bfseries trasparenza}: chiunque ha accesso ad ogni transizione mai registrata nella Blockchain
-    \item {\bfseries sicurezza}: ogni informazione ha un hash associato, questo permette di validare i dati ogni volta è necessario
+  \item {\bfseries decentralizzazione}: non c'è un single-point of failure, non ci si affida a servizi proprietari, essa è composta da nodi e chiunque può mettere in piedi diversi nodi molto semplicemente (per questo si legge spesso che la blockchain è "democratica")
+  \item {\bfseries trasparenza}: chiunque ha accesso ad ogni transizione mai registrata in questo registro distribuito
+  \item {\bfseries sicurezza}: ogni informazione ha un hash associato, questo permette di validare i dati ogni volta è necessario
 	\item {\bfseries immutabilità}: è molto complesso modificare una transizione salvata sulla blockchain (è necessario che la maggioranza dei nodi accettino questa modifica)
 \end{itemize}
 
 Letteralmente blockchain significa "catena di blocchi", infatti questo registro distribuito è composto concatenando una serie di blocchi, ovvero "pacchetti" di transizioni (e altri dati necessari a costruire una catena).
 
 \subsection{Blocchi}
-Questo registro distribuito cresce accodando nuovi blocchi (o record), ognuno dei quali fa riferimento al blocco precedente attraverso un hash.
+Questo 'libro mastro' cresce accodando nuovi blocchi (o record), ognuno dei quali fa riferimento al blocco precedente attraverso un hash.
 Ogni blocco, oltre che contenere una lista di transizioni, ha anche un header in cui sono presenti campi di gestione del blocco stesso.
 Alcuni dei campi più importanti contenuti nell' header sono:
 \begin{itemize}
@@ -41,14 +41,14 @@ Alla base di questa flessibilità c'è la EVM (Ethereum virtual machine) che è 
 
 \vspace{0.5cm}
 
-Gli smart contracts sono dei pezzi di codice salvati sulla blockchain e che vengono eseguiti a richiesta. 
-Solidity è il linguaggio con cui è possibile implementare smart contracts, viene definito linguaggio "contract-oriented".
-Tecnicamente i contratti sono account: in Ethereum ci sono due tipi di account, gli EOAs (Externally owned accounts) che sono account associati a persone ed i Contract Account che sono governati dal loro codice interno ma debbono essere attivati da un EOA.
+Gli smart contracts sono dei pezzi di codice salvati sulla blockchain e che vengono eseguiti a richiesta.
+Solidity è il linguaggio con cui è possibile implementarli, viene definito un linguaggio "contract-oriented".
+Dal punto di vista tecnico i contratti non sono altro che account: in Ethereum ci sono due tipi di account, gli EOAs (Externally owned accounts) che sono account associati a persone ed i Contract Account che sono governati dal loro codice interno ma debbono essere attivati da un EOA.
 Ogni account ha un saldo associato in ETH (la moneta ufficiale di Ethereum); nel caso di EOA il saldo viene aggiornato ad ogni transizione in entrata o in uscita, mentre nel caso dei Contract Account ad essi viene addebitata un costo per ogni volta che vengono eseguiti (si paga un costo computazionale).
 
 \vspace{0.5cm}
 
-Un approccio comune è quello di implementare delle DAPP: sostanzialmente sono delle semplici applicazioni (mobile, web, desktop ecc) che interagendo con gli smart contracts vanno ad aggiungere transizioni sulla blockchain.
+Altra carta vincente di Ethereum sono le DAPP: sostanzialmente sono delle semplici applicazioni (mobile, web, desktop ecc) che interagendo con gli smart contracts vanno ad aggiungere transizioni sulla blockchain.
 Praticamente queste applicazioni usano la blockchain come un "server" decentralizzato con tutti i vantaggi conseguenti.
 
 \vspace{0.5cm}
