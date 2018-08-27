@@ -8,7 +8,7 @@ la scelta è stata semplice in quanto è uno dei migliori strumenti sul mercato,
 
 \vspace{0.5cm}
 
-Successivamente abbiamo scelto web3.js come "accesso" alla blockchain; 
+Successivamente abbiamo scelto web3.js come "accesso" alla blockchain;
 avevamo diverse alternative come effettuare le chiamate RPC esposte dal nodo Ethereum a mano ma questa opzione ci sembrava particolarmente costosa per i tempi di sviluppo,
 oppure avremmo potuto leggere i dati direttamente dal database locale del nodo ma in questo caso lo sviluppo sarebbe stato complesso, lungo e soprattutto avremmo ottenuto una soluzione estremamente "verticale" e non modulare.
 Un'altra opzione era quella di appoggiarci a servizi terzi come ad esempio Etherscan che espone alcune api per leggere dati dalla blockchain:
@@ -44,59 +44,54 @@ Ogni servizio implementa un'interfaccia per rendere il codice modulare e più fa
 In questo caso sono stati implementati:
 \begin{itemize}
     \item {\bfseries Localdataprovider}: il suo compito è quello di recuperare i dati dalla blockchain e fornirli, attraverso un observable, ad altri componenti software.
-    Ecco una parte dell'implementazione.
+    Ecco i metodi più interessanti.
 
     \begin{lstlisting}
-        @Injectable()
-        export class LocalDataProviderService extends DataProvider {
+      getBlocks(start: number, end: number): Observable<Block> {
+        return new Observable((observer) => {
+          for (let i = start; i < end; i ++) {
+            setTimeout((() => {
+              const block = this.web3.eth.getBlock(i) as Block;
+              block.difficulty = block.difficulty.dividedBy(new BigNumber('1000000000000000000'));
+              block.totalDifficulty = block.totalDifficulty.dividedBy(new BigNumber('1000000000000000000'));
+              observer.next(block);
+              if (i + 1 === end) {
+                observer.complete();
+              }
+            }), this.delayInms);
+          }
+        });
+      }
 
-            getBlocks(start: number, end: number): Observable<Block> {
-                return new Observable((observer) => {
-                  for (let i = start; i < end; i ++) {
-                    setTimeout((() => {
-                      const block = this.web3.eth.getBlock(i) as Block;
-                      block.difficulty = block.difficulty.dividedBy(new BigNumber('1000000000000000000'));
-                      block.totalDifficulty = block.totalDifficulty.dividedBy(new BigNumber('1000000000000000000'));
-                      observer.next(block);
-                      if (i + 1 === end) {
-                        observer.complete();
-                      }
-                    }), this.delayInms);
-                  }
-                  });
+      getTransactions(start: number, end: number): Observable<Transaction> {
+        return new Observable((observer) => {
+          for (let j = start; j < end; j ++) {
+            const block = this.web3.eth.getBlock(j) as Block;
+            if (!block) {
+              continue;
             }
 
-            getTransactions(start: number, end: number): Observable<Transaction> {
-                return new Observable((observer) => {
-                  for (let j = start; j < end; j ++) {
-                    const block = this.web3.eth.getBlock(j) as Block;
-                    if (!block) {
-                      continue;
-                    }
-            
-                    for (let i = 0; i < block.transactions.length; i ++) {
-                      setTimeout((() => {
-                        const hash = block.transactions[i];
-                        const item = this.web3.eth.getTransaction(hash) as Transaction;
-                        item.value = item.value.dividedBy(new BigNumber('1000000000000000000'));
-                        observer.next(item);
-            
-                        if (j + 1 === end && i + 1 === block.transactions.length) {
-                          observer.complete();
-                        }
-                      }), this.delayInms);
-                    }
-                  }
-                });
-              }
+            for (let i = 0; i < block.transactions.length; i ++) {
+              setTimeout((() => {
+                const hash = block.transactions[i];
+                const item = this.web3.eth.getTransaction(hash) as Transaction;
+                item.value = item.value.dividedBy(new BigNumber('1000000000000000000'));
+                observer.next(item);
 
-        }
+                if (j + 1 === end && i + 1 === block.transactions.length) {
+                  observer.complete();
+                }
+              }), this.delayInms);
+            }
+          }
+        });
+      }
     \end{lstlisting}
     In questo servizio viene usato web3.js mentre il resto dell'applicazione praticamente non ha idea di come i dati vengono recuperati.
     Possiamo notare anche una particolarità di web3.js: i valori di tipo BigNumber restituiti sono misurati in 'wei' e non in ETH, per questo viene effettuata la conversione dividendo per 1000000000000000000.
     Inoltre è possibile vedere che viene ritornato un observable e i dati vengono serviti in modo asincrono all'observer man mano che vengono recuperati.
 
-    \item {\bfseries Dataprojector}: 
+    \item {\bfseries Dataprojector}:
     Questo servizio invece si occupa di effettuare la 'proiezione', usando l'accezione tipica del mondo dei database, dei dati.
     Sostanzialente dato un oggetto e una lista di proprietà ritorna i valori di quelle proprietà dell'oggetto.
     Ecco il metodo più interessante di questo componente:
@@ -105,7 +100,7 @@ In questo caso sono stati implementati:
             if (!source || !properties) {
               return [];
             }
-        
+
             const values: any[] = [];
             properties.forEach(prop => {
                 values.push(source[prop as string]);
@@ -114,9 +109,9 @@ In questo caso sono stati implementati:
         }
     \end{lstlisting}
 
-    \item {\bfseries Dataselector}: 
+    \item {\bfseries Dataselector}:
     Anche in questo caso il nome è preso in prestito dal mondo SQL dato che questa classe si occupa di effettuare la selezione dei dati;
-    quindi si occupa di verificare se un determinato oggetto rispetta delle regole. 
+    quindi si occupa di verificare se un determinato oggetto rispetta delle regole.
     Le regole in questione sono state formalizzate sotto forma di 'Constraint' in questo modo:
 
     \begin{lstlisting}
@@ -134,11 +129,11 @@ In questo caso sono stati implementati:
             if (!source || source.length <= 0) {
                 return [];
             }
-        
+
             if (!constraints || constraints.length <= 0) {
                 return source;
             }
-        
+
             const result = [];
             for (let i = 0; i < source.length; i++) {
                 const item = source[i];
@@ -146,7 +141,7 @@ In questo caso sono stati implementati:
                     result.push(item);
                 }
             }
-        
+
             return result;
         }
     \end{lstlisting}
@@ -170,7 +165,7 @@ si possono vedere la toolbar blu in alto, il burger-menu le cardview che conteng
 Dopo lo studio iniziale ed una prima implementazione grossolana del progetto abbiamo riscontrato un problema che avevamo trascurato:
 effettuare query all'intera blockchain è un'operazione molto costosa dal punto di vista computazionale e di conseguenza lenta (potenzialmente anche diversi giorni).
 
-Indagando abbiamo stimato che usando web3.js ogni chiamata alla libreria impiega mediamente 100 ms: 
+Indagando abbiamo stimato che usando web3.js ogni chiamata alla libreria impiega mediamente 100 ms:
 prendendo il valore da solo è un tempo più che accettabile il problema nasce dal fatto che web3.js mappando le chiamate RPC esposte dai nodi Ethereum
 fornisce delle api estremamente granulari e specifiche che non permettono alcuna aggregazione di dati.
 Questo significa che è necessario effettuare un gran numero di chiamate per poter ottenere dati aggregati:
@@ -193,12 +188,12 @@ significava realizzare una seconda applicazione il cui 'compito' esulava dagli o
 
 La soluzione adottata invece è stata di natura puramente tecnica:
 accettando il fatto che query su tanti blocchi sono lente possiamo però comunque rendere lo strumento usabile mostrando all'utente i risultati parziali della query e dandogli feedback sul fatto che la query è ancora in esecuzione.
-L'utente sa che la query è in esecuzione attraverso un indicatore di lavoro e ma man mano che vengono trovati record che rispettano la query vengono mostrati all'utente. 
-Questo migliora notevolmente l'esperienza e di conseguenza l'usabilità. 
+L'utente sa che la query è in esecuzione attraverso un indicatore di lavoro e ma man mano che vengono trovati record che rispettano la query vengono mostrati all'utente.
+Questo migliora notevolmente l'esperienza e di conseguenza l'usabilità.
 Praticamente l'esecuzione della query ora è uno streaming di dati sotto forma di pipe.
 Dal punto di vista tecnico questa modifica è stata possibile grazie all'uso degli Observable e della libreria Rxjs.
 
 \vspace{0.5cm}
 
-Il secondo problema invece è stato risolto utilizzando la funzione Javascript 'setTimeout'. 
+Il secondo problema invece è stato risolto utilizzando la funzione Javascript 'setTimeout'.
 Sostanzialmente invece che eseguire subito la chiamata a web3.js in modo sincrono la facciamo in un secondo momento dando modo alla CPU di fermarsi o dedicarsi ad altri processi.
