@@ -1,0 +1,97 @@
+\section{Blockchain}
+Una blockchain si basa su un sistema definito Distributed Ledger Technology (DLT), ossia una tecnologia basata su un registro distrbuito. Alcune caratteristiche fondamentali:
+\begin{itemize}
+    \item {\bfseries decentrallizazione}: non c'è un single-point of failure, non ci si affida a servizi proprietari, essa è composta da nodi e chiunque può mettere in piedi diversi nodi molto semplicemente (per questo si legge spesso che la blockchain è "democratica")
+    \item {\bfseries trasparenza}: chiunque ha accesso ad ogni transizione mai registrata nella Blockchain
+    \item {\bfseries sicurezza}: ogni informazione ha un hash associato, questo permette di validare i dati ogni volta è necessario
+	\item {\bfseries immutabilità}: è molto complesso modificare una transizione salvata sulla blockchain (è necessario che la maggioranza dei nodi accettino questa modifica)
+\end{itemize}
+
+Letteralmente blockchain significa "catena di blocchi", infatti questo registro distribuito è composto concatenando una serie di blocchi, ovvero "pacchetti" di transizioni (e altri dati necessari a costruire una catena).
+
+\subsection{Blocchi}
+Questo registro distribuito cresce accodando nuovi blocchi (o record), ognuno dei quali fa riferimento al blocco precedente attraverso un hash.
+Ogni blocco, oltre che contenere una lista di transizioni, ha anche un header in cui sono presenti campi di gestione del blocco stesso.
+Alcuni dei campi più importanti contenuti nell' header sono:
+\begin{itemize}
+    \item {\bfseries Hash}: l'hash con cui identifichiamo il blocco
+	\item {\bfseries PrevHash}: è un hash che serve per fare riferimento al precedente blocco della catena
+	\item {\bfseries Merkle root}: hash di tutti gli hash di tutte le transazioni nel blocco
+	\item {\bfseries Timestamp}: rappresenta il time stamp dell'ultima transazione con un algoritmo conosciuto come Unix hex timestamp
+	\item {\bfseries Numero di transazioni}: indica il numero di transizioni contenute nel blocco
+\end{itemize}
+
+\subsection{Transizioni}
+La transizione è forse l'entità più interessante della blockchain. Infatti essa definisce il trasferimento di informazioni da un determinato account ad un altro. Ad esempio nei bitcoin è il passaggio di valuta da un account ad un altro; in questo caso la transizione dovrà contenere i riferimenti agli account e la quantità di bitcoin scambiata.
+
+
+\section{Ethereum}
+
+\begin{center}
+    \includegraphics[scale=0.3]{ethereum.jpg}
+\end{center}
+
+Ethereum è una piattaforma che permette a chiunque di costruire applicazioni decentralizzate eseguite sulla blockchain.
+\'E un progetto open-source, questo significa che nessuno è proprietario di Ethereum e che è stato sviluppato da persone di tutto il mondo.
+
+\vspace{0.5cm}
+
+Si può dire che Ethereum è una piattaforma perchè è stato progettato per essere flessibile e per adattarsi a tutti i contesti, infatti chiunque può fargli eseguire una propria applicazione, uno Smart Contract.
+Alla base di questa flessibilità c'è la EVM (Ethereum virtual machine) che è il componente che si occupa di eseguire gli smart contracts.
+
+\vspace{0.5cm}
+
+Gli smart contracts sono dei pezzi di codice salvati sulla blockchain e che vengono eseguiti a richiesta. 
+Solidity è il linguaggio con cui è possibile implementare smart contracts, viene definito linguaggio "contract-oriented".
+Tecnicamente i contratti sono account: in Ethereum ci sono due tipi di account, gli EOAs (Externally owned accounts) che sono account associati a persone ed i Contract Account che sono governati dal loro codice interno ma debbono essere attivati da un EOA.
+Ogni account ha un saldo associato in ETH (la moneta ufficiale di Ethereum); nel caso di EOA il saldo viene aggiornato ad ogni transizione in entrata o in uscita, mentre nel caso dei Contract Account ad essi viene addebitata un costo per ogni volta che vengono eseguiti (si paga un costo computazionale).
+
+\vspace{0.5cm}
+
+Un approccio comune è quello di implementare delle DAPP: sostanzialmente sono delle semplici applicazioni (mobile, web, desktop ecc) che interagendo con gli smart contracts vanno ad aggiungere transizioni sulla blockchain.
+Praticamente queste applicazioni usano la blockchain come un "server" decentralizzato con tutti i vantaggi conseguenti.
+
+\vspace{0.5cm}
+
+Creare un nodo di Ethereum è molto semplice, è sufficiente installare uno dei suoi client ed aspettare che si sincronizzi. Ci sono numerosi client, tra i più famosi: Parity, go-ethereum, cpp-ethereum, pyethapp, ruby-ethereum...
+Questi client mettono a disposizone diverse funzionalità tra cui l'accesso alla blockcahin, esponendo delle api da richiamare per leggere i dati della blockchain, la gestione delle DAPP ed il mining.
+Il mining consiste nella possibilità di mettere a disposizione la propria potenza computazionale per la blockchain: praticamente il nodo miner si occupa di ricevere, propagare, validare ed eseguire transizioni, di raggrupparle in blocchi e poi compete con altri miner per fare in modo che il prossimo blocco della blockchain sia quello appena creato. Il miner viene compensato con degli ETH per ogni blocco aggiunto.
+
+\section{Web3.js}
+Web3.js è una libreria Javascript che espone delle semplici api che ci permettono di interagire con Ethereum.
+Internamente la libreria non fa altro che mappare le proprie funzioni con le api esposte da un nodo Ethereum effettuando le relative chiamate RPC.
+Può far riferimento a nodi sia locali che remoti, è sufficiente cambiare opportunamente l'url in cui è esposto il nodo.
+
+Progetto open-source disponibile su GitHub:
+https://github.com/ethereum/web3.js/
+
+
+\section{Angular}
+
+Angular è un framework per lo sviluppo di applicazioni, originariamente pensato per il web, si è poi esteso anche al mondo mobile e desktop.
+Anche questo è un progetto open-source al cui sviluppo/mantenimento partecipa in maniera molto importante, tra gli altri sviluppatori e aziende, il Team Angular di Google.
+
+Angular rende più semplice creare applicazioni e lo fa combinando l'approccio dichiarativo per la definizione della UI a pattern tipici dei linguaggi object-oriented come la dependency-injection.
+A tutto questo aggiunge una serie di componenti e servizi già implementati come ad esempio tutti i componenti grafici che seguono le linee guida del Material Design di Google o il servizio http, molto utile per l'interazione con delle api di backend.
+
+\subsection{Typescript}
+Il linguaggio usato nello sviluppo con Angular è Typescript. Il typescript è un linguaggio compilato superset del javascript, il risultato della sua compilazione è proprio codice javascript minificato e che segue tutte le best practices.
+Quindi praticamente la nostra applicazione Angular al momento dell'esecuzione altro non è che un'enorme applicazione javascript.
+
+L'uso del typescript mette a disposizione dello sviluppatore tutta una serie di utility tipiche dei linguaggi object-orented: classi, interfacce, ereditarietà...
+Permette quindi di ottenere applicazioni complesse con codice ben strutturato.
+
+\subsection{UI}
+In angular la ui è dichiarativa e si definisce usando l'html con l'aggiunta di alcuni costrutti e pattern specifici del framework come ad esempio il {\bfseries Data Binding}.
+Il Data binding ci permette di creare un legame tra un componente grafico ed una nostra classe scritta in Typescript.
+Questo approccio è molto scalabile e permette di risparmiare molto codice in quanto è possibile modificare quanto mostrato a schermo soltanto modificando una variabile in memoria.
+Affinchè questo possa accadere angular effettua dei cicli di re-rendering alla modifica di determinate variabili.
+Per quanto riguarda la logica di iterfaccia del nostro applicativo è definita nei {\bfseries Componenti}, che sono classi a cui applichiamo il decoratore {\bfseries Component}.
+
+\subsection{Business logic}
+La logica di business è implementata nei {\bfseries Servizi}, ovvero classi typescript che usano il decoratore {\bfseries Injectable} di Angular.
+Come definito dal decoratore injectable i servizi possono essere iniettati attraverso la {\bfseries Dependency Injection}.
+L'applicazione angular è organizzata in moduli ed almeno un modulo root deve esistere. Ogni modulo importa ed esporta una serie di componenti e servizi (oltre ad altri strumenti secondari).
+
+\subsection{Angular/RxJs}
+Angular ha aggiunto nelle ultime versioni il pacchetto RxJs: questa libreria permette l'uso del "Reactive programming", ovvero di un paradigma di programmazione asincrona che si occupa dello stream e propagazione di dati.
