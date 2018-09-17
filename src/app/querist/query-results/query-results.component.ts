@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { MatDialog } from '@angular/material';
 
@@ -15,6 +15,7 @@ import { FileContentGenerator } from '../../shared/services/interfaces/ifilecont
 export class QueryResultsComponent implements OnInit {
 
   public isQuerying: Boolean = false;
+  public noDataNorQuery: Boolean = true;
 
   constructor(
     public querist: Querist,
@@ -23,12 +24,15 @@ export class QueryResultsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.isQuerying = true;
-    this.querist.executeQuery().subscribe(
-      (value: any) => { console.log(value); } ,
-      (msg) => console.log('Error executing query: ', msg),
-      () => this.isQuerying = false
-    );
+    if (this.querist.query) {
+      this.isQuerying = true;
+      this.noDataNorQuery = false;
+      this.querist.executeQuery().subscribe(
+        (value: any) => { } ,
+        (msg) => console.log('Error executing query: ', msg),
+        () => this.isQuerying = false
+      );
+    }
   }
 
   public downloadData() {

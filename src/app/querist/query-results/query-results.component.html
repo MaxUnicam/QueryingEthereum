@@ -5,25 +5,24 @@
     <mat-progress-bar mode="indeterminate"></mat-progress-bar>
   </div>
 
-  <h3 style="margin: 16px;">Risultati <span class="text-small">[{{querist.queryResult.length}}]</span></h3>
-  <table>
-    <tr>
-      <th *ngFor="let prop of querist.query.desiredProperties"> {{prop}} </th>
-    </tr>
-    <tr *ngFor="let res of querist.queryResult" class="data-row">
-      <td *ngFor="let prop of querist.query.desiredProperties">
-        {{res[prop]}}
-      </td>
-    </tr>
-  </table>
 
-  <!-- <h3 style="margin: 16px;">Risultati <span class="text-small">[{{querist.queryResult.length}}]</span></h3>
-    <div *ngFor="let result of querist.queryResult" class="result-item">
-      <mat-card>
-        <p style="margin: 1px;">{{result | json}}</p>
-      </mat-card>
+  <div *ngIf="noDataNorQuery" class="no-data-message">
+    Nessuna query eseguita e nessun risultato da mostrare
+  </div>
 
-    </div> -->
+  <div *ngIf="!noDataNorQuery">
+      <h3 style="margin: 16px;">Risultati <span class="text-small">[{{querist.queryResult.length}}]</span></h3>
+      <table>
+        <tr>
+          <th *ngFor="let prop of querist.query.desiredProperties"> {{prop}} </th>
+        </tr>
+        <tr *ngFor="let res of querist.queryResult" class="data-row">
+          <td *ngFor="let prop of querist.query.desiredProperties">
+            {{res[prop]}}
+          </td>
+        </tr>
+      </table>
+  </div>
 
 </div>
 

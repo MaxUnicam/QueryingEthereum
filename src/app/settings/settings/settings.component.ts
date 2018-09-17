@@ -9,7 +9,7 @@ import { Settings } from '../isettings';
 })
 export class SettingsComponent implements OnInit {
 
-  constructor(private settings: Settings) { }
+  constructor(public settings: Settings) { }
 
   ngOnInit() {
 
