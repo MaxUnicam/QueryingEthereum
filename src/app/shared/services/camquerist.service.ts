@@ -38,28 +38,24 @@ export class CamQueristService extends Querist {
         }
       }
 
-      // console.log('query limits: ');
-      // console.log(this.settings.queryStartBlock);
-      // console.log(this.settings.numberOfBlocks);
-
       let endBlock = this.settings.queryStartBlock as number;
       endBlock += this.settings.numberOfBlocks as number;
 
       if (query.sourceType === 'Transaction') {
         this.provider.getTransactions(this.settings.queryStartBlock, endBlock).subscribe(
-          (transaction: Transaction) => this.validate(transaction, query.constraints, query.desiredProperties),
+          (transaction: Transaction) => this.validate(transaction, query.constraints, query.desiredProperties, observer),
           (msg) => console.log('Error Getting Transaction: ', msg),
           () => this.completeQuery(observer)
         );
       } else if (query.sourceType === 'Account') {
         this.provider.getAccount(query.constraints[0].value).subscribe(
-          (account: Account) => this.validate(account, query.constraints, query.desiredProperties),
+          (account: Account) => this.validate(account, query.constraints, query.desiredProperties, observer),
           (msg) => console.log('Error Getting Account balance: ', msg),
           () => this.completeQuery(observer)
         );
       } else {
         this.provider.getBlocks(this.settings.queryStartBlock, endBlock).subscribe(
-          (block: Block) => this.validate(block, query.constraints, query.desiredProperties),
+          (block: Block) => this.validate(block, query.constraints, query.desiredProperties, observer),
           (msg) => console.log('Error Getting Block: ', msg),
           () => this.completeQuery(observer)
         );
@@ -71,7 +67,7 @@ export class CamQueristService extends Querist {
     this.query = query;
   }
 
-  private validate(item: any, constraints: Constraint[], properties: string[]) {
+  private validate(item: any, constraints: Constraint[], properties: string[], observer: Observer<any>) {
     if (this.selector.isValid(item, constraints)) {
       const values = this.projector.getValues(item, properties);
       const t = { };
@@ -79,7 +75,9 @@ export class CamQueristService extends Querist {
         t[properties[j] as string] = values[j];
       }
 
+      // this.queryResult = [...this.queryResult];
       this.queryResult.push(t);
+      // observer.next(t);
     }
   }
 

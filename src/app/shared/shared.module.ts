@@ -10,6 +10,8 @@ import { Selector } from './services/interfaces/iselector';
 import { DataSelectorService } from './services/dataselector.service';
 import { Querist } from './services/interfaces/iquerist';
 import { CamQueristService } from './services/camquerist.service';
+import { FileContentGenerator } from './services/interfaces/ifilecontentgenerator';
+import { ReportGeneratorService } from './services/reportgenerator.service';
 
 import { ConstraintPipe } from './pipes/constraint.pipe';
 import { LogicalPipe } from './pipes/logical.pipe';
@@ -27,7 +29,8 @@ import { HelpComponent } from './help/help.component';
     // { provide: DataProvider, useClass: FakeDataProviderService },
     { provide: Projector, useClass: DataProjectorService },
     { provide: Selector, useClass: DataSelectorService },
-    { provide: Querist, useClass: CamQueristService }
+    { provide: Querist, useClass: CamQueristService },
+    { provide: FileContentGenerator, useClass: ReportGeneratorService }
   ],
   exports: [
     ConstraintPipe,

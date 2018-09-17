@@ -15,8 +15,12 @@ import {
   MatRadioModule,
   MatSelectModule,
   MatInputModule,
-  MatProgressBarModule
+  MatProgressBarModule,
+  MatTableModule,
+  MatPaginatorModule,
+  MatDialogModule
 } from '@angular/material';
+import { ExportDialogComponent } from './export-dialog/export-dialog.component';
 
 
 @NgModule({
@@ -33,12 +37,16 @@ import {
     MatRadioModule,
     MatSelectModule,
     MatInputModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatDialogModule
   ],
   declarations: [
     VisualQueristComponent,
-    QueryResultsComponent
+    QueryResultsComponent,
+    ExportDialogComponent
   ],
-  entryComponents: []
+  entryComponents: [ExportDialogComponent]
 })
 export class QueristModule { }

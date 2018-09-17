@@ -13,3 +13,24 @@
 .text-small {
   font-size: small;
 }
+
+table {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: scroll;
+  display: block;
+}
+
+td, th {
+  padding: 16px;
+}
+
+tr {
+  border-bottom: 1px solid lightgray;
+}
+
+.floating-button {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+}

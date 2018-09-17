@@ -17,12 +17,6 @@
   width: 40%
 }
 
-.query-button {
-  position: fixed;
-  bottom: 32px;
-  right: 32px;
-}
-
 .field {
   width: 150px;
   margin: 5px;
@@ -34,4 +28,10 @@
 
 .logical-op-field {
   width: 60px;
+}
+
+.floating-button {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
 }

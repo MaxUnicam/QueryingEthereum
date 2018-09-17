@@ -20,12 +20,12 @@ import { Settings } from '../../settings/isettings';
 })
 export class VisualQueristComponent implements OnInit {
 
-  private operators: string[] = [ '=', '!=', '>', '>=', '<=', '<' ];
-  private constraints: Constraint[] = [
+  public operators: string[] = [ '=', '!=', '>', '>=', '<=', '<' ];
+  public constraints: Constraint[] = [
     { property: '', operator: '', value: '' }
   ];
 
-  private dataType = 'Block';
+  public dataType = 'Block';
   public logicalOperators = LogicalOperator;
   public currentProperties: string[] = [];
   public selectedProperties: string[] = [];
@@ -33,27 +33,10 @@ export class VisualQueristComponent implements OnInit {
   constructor(
     private projector: Projector,
     private querist: Querist,
-    private router: Router,
-    private settings: Settings) { }
+    private router: Router) { }
 
   ngOnInit() {
-    // const provider = new LocalDataProviderService(this.settings);
-    // provider.getAccount('0x407d73d8a49eeb85d32cf465507dd71d507100c1').subscribe(
-    //   (account: Account) => console.log(account),
-    //   (msg) => console.log(msg),
-    //   () => console.log('Completed')
-    // );
 
-    // provider.getTransactions(5823990, 5823994).subscribe(
-    //   (transaction: Transaction) => console.log(transaction),
-    //   (msg) => console.log(msg),
-    //   () => console.log('Completed')
-    // );
-    // provider.getTransactions(312510, 312810).subscribe(
-    //   (transaction: Transaction) => console.log(transaction),
-    //   (msg) => console.log(msg),
-    //   () => console.log('Completed')
-    // );
   }
 
   updateSelection(type) {
