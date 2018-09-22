@@ -36,8 +36,8 @@ export class LocalDataProviderService extends DataProvider {
   getBlock(number: number | string): Observable<Block> {
     return new Observable((observer) => {
       const block = this.web3.eth.getBlock(number) as Block;
-      block.difficulty = block.difficulty.dividedBy(new BigNumber('1000000000000000000'));
-      block.totalDifficulty = block.totalDifficulty.dividedBy(new BigNumber('1000000000000000000'));
+      block.difficulty = this.normalizeEth(block.difficulty);
+      block.totalDifficulty = this.normalizeEth(block.totalDifficulty);
       observer.next(block);
       observer.complete();
     });
@@ -48,8 +48,8 @@ export class LocalDataProviderService extends DataProvider {
       for (let i = start; i < end; i ++) {
         setTimeout((() => {
           const block = this.web3.eth.getBlock(i) as Block;
-          block.difficulty = block.difficulty.dividedBy(new BigNumber('1000000000000000000'));
-          block.totalDifficulty = block.totalDifficulty.dividedBy(new BigNumber('1000000000000000000'));
+          block.difficulty = this.normalizeEth(block.difficulty);
+          block.totalDifficulty = this.normalizeEth(block.totalDifficulty);
           observer.next(block);
           if (i + 1 === end) {
             observer.complete();
@@ -62,7 +62,7 @@ export class LocalDataProviderService extends DataProvider {
   getTransaction(hash: String): Observable<Transaction> {
     return new Observable((observer) => {
       const transaction = this.web3.eth.getTransaction(hash) as Transaction;
-      transaction.value = transaction.value.dividedBy(new BigNumber('1000000000000000000'));
+      transaction.value = this.normalizeEth(transaction.value);
       observer.next(transaction);
       observer.complete();
     });
@@ -80,7 +80,7 @@ export class LocalDataProviderService extends DataProvider {
           setTimeout((() => {
             const hash = block.transactions[i];
             const item = this.web3.eth.getTransaction(hash) as Transaction;
-            item.value = item.value.dividedBy(new BigNumber('1000000000000000000'));
+            item.value = this.normalizeEth(item.value);
             observer.next(item);
 
             if (j + 1 === end && i + 1 === block.transactions.length) {
@@ -97,12 +97,21 @@ export class LocalDataProviderService extends DataProvider {
       const balance = this.web3.eth.getBalance(hash, this.web3.eth.blockNumber) as BigNumber;
       const account = {
         hash: hash,
-        balance: balance.dividedBy(new BigNumber('1000000000000000000'))
+        balance: this.normalizeEth(balance)
       };
 
       observer.next(account);
       observer.complete();
     });
+  }
+
+
+  private normalizeEth(value: BigNumber): BigNumber {
+    if (!value) {
+      return new BigNumber(0);
+    }
+
+    return value.dividedBy(new BigNumber('1000000000000000000'));
   }
 
 }
