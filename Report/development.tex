@@ -52,8 +52,8 @@ In questo caso sono stati implementati:
           for (let i = start; i < end; i ++) {
             setTimeout((() => {
               const block = this.web3.eth.getBlock(i) as Block;
-              block.difficulty = block.difficulty.dividedBy(new BigNumber('1000000000000000000'));
-              block.totalDifficulty = block.totalDifficulty.dividedBy(new BigNumber('1000000000000000000'));
+              block.difficulty = this.normalizeEth(block.difficulty);
+              block.totalDifficulty = this.normalizeEth(block.totalDifficulty);
               observer.next(block);
               if (i + 1 === end) {
                 observer.complete();
@@ -75,7 +75,7 @@ In questo caso sono stati implementati:
               setTimeout((() => {
                 const hash = block.transactions[i];
                 const item = this.web3.eth.getTransaction(hash) as Transaction;
-                item.value = item.value.dividedBy(new BigNumber('1000000000000000000'));
+                item.value = this.normalizeEth(item.value);
                 observer.next(item);
 
                 if (j + 1 === end && i + 1 === block.transactions.length) {
@@ -147,9 +147,13 @@ In questo caso sono stati implementati:
     \end{lstlisting}
 
     \item {\bfseries Camquerist}:
-    L'ultimo servizio implementato è stato il servizion che si occupa di gestire e coordinare tutti quelli che abbiamo visto in precedenza.
+    L'ultimo servizio implementato è stato il servizio che si occupa di gestire e coordinare tutti quelli che abbiamo visto in precedenza.
     Praticamente recupera i dati dal data provider, li filtra con il data selector e li proietta affidandosi al data projector.
     La sua utilità è quella di fornire un unico punto di accesso per far partire la query nascondendo il coordinamento dei diversi servizi alle classi che lo utilizzano.
+
+    \item {\bfseries ReportGenerator}:
+    In parallelo ai servizi per la costruzione e l'esecuzione delle query è stato progettato anche un semplice servizio che permettesse la generazione di report partendo dai risultati delle query stesse.
+    Al momento è possibile effettuare un export di queste informazioni in formato .csv o .json, ma altri sarebbero semplici da implementare.
 
 \end{itemize}
 
@@ -160,6 +164,27 @@ si possono vedere la toolbar blu in alto, il burger-menu le cardview che conteng
 \begin{center}
     \includegraphics[scale=0.3]{screen.png}
 \end{center}
+
+
+\section{Esempi di query}
+Ecco di seguito alcuni esempi di query che è possibile realizzare utilizzando questo tool:
+\begin{center}
+  \includegraphics[scale=0.3]{query_value>=2.png}
+\end{center}
+In questa prima query si stanno cercando tutte le transizioni di importo maggiore o uguale a 2 ETH.
+Di queste trasizioni siamo interessati all'hash, da chi è partito l'importo e chi l'ha ricevuto, oltre che l'importo stesso.
+
+\begin{center}
+  \includegraphics[scale=0.3]{query_from.png}
+\end{center}
+Nell'immagine sopra vogliamo ottenere l'hash, il numero del blocco, il ricevente ed il valore delle transizioni che sono partite da un determinato account.
+
+\begin{center}
+  \includegraphics[scale=0.4]{query_balance.png}
+\end{center}
+In questo ultimo esempio stiamo chiedendo ad Ethereum il bilancio di un determinato account.
+
+Ovviamente questi sono soltanto esempi indicativi, è possibile realizzare un gran numero di query oltre a quelle illustrate.
 
 \section{Problemi incontrati}
 Dopo lo studio iniziale ed una prima implementazione grossolana del progetto abbiamo riscontrato un problema che avevamo trascurato:
