@@ -16,6 +16,8 @@ export class LocalDataProviderService extends DataProvider {
 
   // ./parity --jsonrpc-cors all
 
+  // REFERENCES: https://github.com/miguelmota/ethereum-input-data-decoder
+
   private web3: Web3;
   private delayInms = 100;
 

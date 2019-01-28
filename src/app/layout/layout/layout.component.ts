@@ -18,4 +18,8 @@ export class LayoutComponent implements OnInit {
     this.router.navigate(['querist']);
   }
 
+  goToMining() {
+    this.router.navigate(['mining']);
+  }
+
 }

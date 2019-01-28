@@ -21,8 +21,12 @@ import {
   MatListModule
 } from '@angular/material';
 
+import { MinerComponent } from '../mining/miner/miner.component';
+import { MiningModule } from '../mining/mining.module';
+
 const appRoutes: Routes = [
   { path: 'querist', component: VisualQueristComponent },
+  { path: 'mining', component: MinerComponent },
   { path: 'results', component: QueryResultsComponent },
   { path: 'settings', component: SettingsComponent },
   { path: 'help', component: HelpComponent },
@@ -44,6 +48,7 @@ const appRoutes: Routes = [
     MatListModule,
 
     QueristModule,
+    MiningModule,
     SettingsModule
   ],
   exports: [
